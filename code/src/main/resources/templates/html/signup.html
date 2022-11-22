@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册账号</title>
+    <link rel="shortcut icon" href="#"/>
+
+    <script type="text/javascript" src="../js/Jquery.js"></script>
+    <script type="text/javascript" src="../js/jquerysession.js"></script>
+
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/colResizable-1.6.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-resizable.js"></script>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/signup.js"></script>
+</head>
+
+<body class="pt-2">
+
+<div id="table-toolbar" style="margin-top: 1%">
+    <div class="btn-group" role="group">
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：注册账号</a>
+    </div>
+</div>
+
+<div style="margin-top: 1%">
+    <form id="add-form" class="needs-validation">
+        <div class="form-group">
+            <label for="add-system">系统</label>
+            <select id="add-system" name="system" class="form-control" autocomplete="off">
+                <option value="云合未来财务系统">云合未来财务系统</option>
+                <option value="云合人事管理系统">云合人事管理系统</option>
+                <option value="云合未来进销存系统">云合未来进销存系统</option>
+                <option value="云合排产管理系统">云合排产管理系统</option>
+                <option value="云合分权编辑系统">云合分权编辑系统</option>
+                <option value="云合未来教务系统">云合未来教务系统</option>
+                <option value="云合卡管理系统">云合卡管理系统</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="add-company">公司名</label>
+            <input id="add-company" name="company" type="text" class="form-control" autocomplete="off">
+            <div class="invalid-feedback">
+                请输入用户名！
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="add-username">用户名</label>
+            <input id="add-username" name="username" type="text" class="form-control" autocomplete="off">
+            <div class="invalid-feedback">
+                请输入用户名！
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="add-password">密码</label>
+            <input id="add-password" name="password" type="text" class="form-control" autocomplete="off">
+            <div class="invalid-feedback">
+                请输入密码！
+            </div>
+        </div>
+    </form>
+
+    <div class="border-top" style="padding-top: 15px;">
+        <button id="add-submit-btn" type="button" class="btn btn-primary" style="width:150px">
+            <i class="bi bi-arrow-bar-up icon"></i>
+            提交
+        </button>
+    </div>
+</div>
+
+
+</body>
+</html>
