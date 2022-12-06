@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class JiaowuUserServiceImpl extends ServiceImpl<JiaowuUserMapper, JiaowuUser> implements JiaowuUserService {
     @Autowired
-    JiaowuUserMapper jiaowuUserMapper;
+    private JiaowuUserMapper jiaowuUserMapper;
 
     @Override
     public List<JiaowuUser> getId() {
@@ -26,6 +26,21 @@ public class JiaowuUserServiceImpl extends ServiceImpl<JiaowuUserMapper, JiaowuU
     @Override
     public JiaowuUser add(JiaowuUser jiaowuUser) {
         return save(jiaowuUser) ? jiaowuUser : null;
+    }
+
+    @Override
+    public List<JiaowuUser> getList(String company, String username) {
+        return jiaowuUserMapper.getList(company, username);
+    }
+
+    @Override
+    public boolean jinyong(int id) {
+        return jiaowuUserMapper.jinyong(id);
+    }
+
+    @Override
+    public boolean jiejin(int id) {
+        return jiaowuUserMapper.jiejin(id);
     }
 
 

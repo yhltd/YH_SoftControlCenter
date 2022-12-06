@@ -13,5 +13,13 @@ import java.util.List;
 @Service
 public interface SchedulingUserService extends IService<SchedulingUser> {
     List<SchedulingUser> getId();
+
     SchedulingUser add(SchedulingUser schedulingUser);
+
+    List<SchedulingUser> getList(String company, String username);
+
+    boolean jinyong(int id);
+
+    boolean jiejin(int id);
+
 }

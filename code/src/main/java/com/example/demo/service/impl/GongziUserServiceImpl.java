@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class GongziUserServiceImpl extends ServiceImpl<GongziUserMapper, GongziUser> implements GongziUserService {
     @Autowired
-    GongziUserMapper gongziUserMapper;
+    private GongziUserMapper gongziUserMapper;
 
     @Override
     public List<GongziUser> getId() {
@@ -27,4 +27,12 @@ public class GongziUserServiceImpl extends ServiceImpl<GongziUserMapper, GongziU
     public GongziUser add(GongziUser gongziUser) {
         return save(gongziUser) ? gongziUser : null;
     }
+
+    @Override
+    public List<GongziUser> getList(String company, String username) {
+        return gongziUserMapper.getList(company, username);
+    }
+
+
+
 }

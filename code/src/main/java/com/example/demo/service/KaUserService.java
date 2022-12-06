@@ -13,5 +13,8 @@ import java.util.List;
 @Service
 public interface KaUserService extends IService<KaUser> {
     List<KaUser> getId();
+
     KaUser add(KaUser kaUser);
+
+    List<KaUser> getList(String company, String username);
 }

@@ -16,11 +16,16 @@ import java.util.List;
 @Service
 public class YhJinxiaocunUserServiceImpl extends ServiceImpl<YhJinxiaocunUserMapper, YhJinxiaocunUser> implements YhJinxiaocunUserService {
     @Autowired
-    YhJinxiaocunUserMapper yhJinxiaocunUserMapper;
+    private YhJinxiaocunUserMapper yhJinxiaocunUserMapper;
 
     @Override
     public YhJinxiaocunUser add(YhJinxiaocunUser yhJinxiaocunUser) {
         return save(yhJinxiaocunUser) ? yhJinxiaocunUser : null;
+    }
+
+    @Override
+    public List<YhJinxiaocunUser> getList(String company, String username) {
+        return yhJinxiaocunUserMapper.getList(company, username);
     }
 
 

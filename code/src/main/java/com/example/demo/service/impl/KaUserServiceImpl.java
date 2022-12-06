@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class KaUserServiceImpl extends ServiceImpl<KaUserMapper, KaUser> implements KaUserService {
     @Autowired
-    KaUserMapper kaUserMapper;
+    private KaUserMapper kaUserMapper;
 
     @Override
     public List<KaUser> getId() {
@@ -26,5 +26,10 @@ public class KaUserServiceImpl extends ServiceImpl<KaUserMapper, KaUser> impleme
     @Override
     public KaUser add(KaUser kaUser) {
         return save(kaUser) ? kaUser : null;
+    }
+
+    @Override
+    public List<KaUser> getList(String company, String username) {
+        return kaUserMapper.getList(company, username);
     }
 }

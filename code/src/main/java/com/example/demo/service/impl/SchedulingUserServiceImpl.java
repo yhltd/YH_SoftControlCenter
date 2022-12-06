@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SchedulingUserServiceImpl extends ServiceImpl<SchedulingUserMapper, SchedulingUser> implements SchedulingUserService {
     @Autowired
-    SchedulingUserMapper schedulingUserMapper;
+    private SchedulingUserMapper schedulingUserMapper;
 
     @Override
     public List<SchedulingUser> getId() {
@@ -26,5 +26,20 @@ public class SchedulingUserServiceImpl extends ServiceImpl<SchedulingUserMapper,
     @Override
     public SchedulingUser add(SchedulingUser schedulingUser) {
         return save(schedulingUser) ? schedulingUser : null;
+    }
+
+    @Override
+    public List<SchedulingUser> getList(String company, String username) {
+        return schedulingUserMapper.getList(company, username);
+    }
+
+    @Override
+    public boolean jinyong(int id) {
+        return schedulingUserMapper.jinyong(id);
+    }
+
+    @Override
+    public boolean jiejin(int id) {
+        return schedulingUserMapper.jiejin(id);
     }
 }

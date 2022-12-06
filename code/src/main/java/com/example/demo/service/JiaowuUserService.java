@@ -13,5 +13,12 @@ import java.util.List;
 @Service
 public interface JiaowuUserService extends IService<JiaowuUser> {
     List<JiaowuUser> getId();
+
     JiaowuUser add(JiaowuUser jiaowuUser);
+
+    List<JiaowuUser> getList(String company, String username);
+
+    boolean jinyong(int id);
+
+    boolean jiejin(int id);
 }

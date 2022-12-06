@@ -17,6 +17,9 @@ import java.util.List;
 @Repository
 @DS("jxc")
 public interface YhJinxiaocunUserMapper extends BaseMapper<YhJinxiaocunUser> {
-    @Select("select * from yh_jinxiaocun_user")
-    List<YhJinxiaocunUser> getList();
+    @Select("select * from yh_jinxiaocun_user where gongsi like concat('%',#{company},'%') and `name` like concat('%',#{username},'%') ")
+    List<YhJinxiaocunUser> getList(String company, String username);
+
+
+
 }

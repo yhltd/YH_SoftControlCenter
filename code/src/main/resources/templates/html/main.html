@@ -19,9 +19,10 @@
             $('a').click(function () {
                 let src = $(this).data('src');
                 if (src != '' && src != undefined) {
-                    $('#iframe').attr('src', src);
-                    if ($('#navbarSupportedContent').hasClass('show')) {
-                        $('.navbar-toggler').click();
+                    if (src == "退出") {
+                        window.location.href = "../index.html"
+                    } else {
+                        $('#iframe').attr('src', src);
                     }
                 }
             })
@@ -55,10 +56,18 @@
             <li class="nav-item">
                 <a class="nav-link" data-src="signup.html" style="color: white !important;">注册账号</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="accountQuery.html" style="color: white !important;">账号查询</a>
+            </li>
         </ul>
+        <!--        <ul class="navbar-nav float-md-right">-->
+        <!--            <li class="nav-item">-->
+        <!--                <a class="nav-link" data-src="" style="color: white !important;">版本：v0.1</a>-->
+        <!--            </li>-->
+        <!--        </ul>-->
         <ul class="navbar-nav float-md-right">
             <li class="nav-item">
-                <a class="nav-link" data-src="" style="color: white !important;">版本：v0.1</a>
+                <a href="#" class="nav-link" data-src="退出" style="color: white !important;">退出</a>
             </li>
         </ul>
     </div>

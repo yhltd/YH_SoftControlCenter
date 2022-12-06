@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.demo.entity.FinanceUser;
 import com.example.demo.entity.GongziUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,5 +20,8 @@ import java.util.List;
 public interface GongziUserMapper extends BaseMapper<GongziUser> {
     @Select("select top 1 * from gongzi_renyuan order by id desc")
     List<GongziUser> getId();
+
+    @Select("select * from gongzi_renyuan where L like '%'+#{company}+'%' and I like '%'+#{username}+'%' ")
+    List<GongziUser> getList(String company, String username);
 
 }

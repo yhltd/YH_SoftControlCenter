@@ -13,5 +13,8 @@ import java.util.List;
 @Service
 public interface GongziUserService extends IService<GongziUser> {
     List<GongziUser> getId();
+
     GongziUser add(GongziUser gongziUser);
+
+    List<GongziUser> getList(String company, String username);
 }

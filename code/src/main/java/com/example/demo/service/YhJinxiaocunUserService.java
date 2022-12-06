@@ -16,4 +16,6 @@ public interface YhJinxiaocunUserService extends IService<YhJinxiaocunUser> {
      * 添加
      */
     YhJinxiaocunUser add(YhJinxiaocunUser yhJinxiaocunUser);
+
+    List<YhJinxiaocunUser> getList(String company, String username);
 }
