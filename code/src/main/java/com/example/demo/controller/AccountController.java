@@ -92,7 +92,7 @@ public class AccountController {
                             Account account = new Account();
                             account.setId(gongziUser.getId());
                             account.setSystem("云合人事管理系统");
-                            account.setCompany(gongziUser.getB());
+                            account.setCompany(gongziUser.getL());
                             account.setUsername(gongziUser.getI());
                             account.setPassword(gongziUser.getJ());
                             account.setState("");

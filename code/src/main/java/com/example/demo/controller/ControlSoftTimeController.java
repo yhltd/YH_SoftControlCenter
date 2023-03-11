@@ -56,6 +56,10 @@ public class ControlSoftTimeController {
     private FenquanPower1Service fenquanPower1Service;
     @Autowired
     private FenquanPower2Service fenquanPower2Service;
+    @Autowired
+    private FenquanPower3Service fenquanPower3Service;
+    @Autowired
+    private FenquanPower4Service fenquanPower4Service;
 
 
     @RequestMapping("/login")
@@ -283,6 +287,14 @@ public class ControlSoftTimeController {
                 fenquanUser.setRenyuanId(sdf.format(date));
                 fenquanUser.setZhuangtai("正常");
                 fenquanUserService.add(fenquanUser);
+
+                FenquanPower3 fenquanPower3 = new FenquanPower3();
+                fenquanPower3.setCompany(company);
+                fenquanPower3Service.add(fenquanPower3);
+
+                FenquanPower4 fenquanPower4 = new FenquanPower4();
+                fenquanPower4.setB(company);
+                fenquanPower4Service.add(fenquanPower4);
 
                 for (int i = 0; i < 2; i++) {
                     FenquanPower1 fenquanPower1 = new FenquanPower1();
