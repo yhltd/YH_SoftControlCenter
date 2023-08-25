@@ -33,6 +33,24 @@ public class GongziUserServiceImpl extends ServiceImpl<GongziUserMapper, GongziU
         return gongziUserMapper.getList(company, username);
     }
 
+    @Override
+    public List<GongziUser> getCompany() {
+        return gongziUserMapper.getCompany();
+    }
 
+    @Override
+    public boolean delete(int idList) {
+        return removeById(idList);
+    }
 
+    @Override
+    public boolean deleteCompany(String company) {
+        gongziUserMapper.deleteCompany1(company);
+        gongziUserMapper.deleteCompany2(company);
+        gongziUserMapper.deleteCompany3(company);
+        gongziUserMapper.deleteCompany4(company);
+        gongziUserMapper.deleteCompany5(company);
+        gongziUserMapper.deleteCompany6(company);
+        return gongziUserMapper.deleteCompany7(company);
+    }
 }

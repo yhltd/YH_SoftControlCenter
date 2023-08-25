@@ -27,4 +27,35 @@ public class FinanceUserServiceImpl extends ServiceImpl<FinanceUserMapper, Finan
     public List<FinanceUser> getList(String company, String username) {
         return financeUserMapper.getList(company, username);
     }
+
+    @Override
+    public List<FinanceUser> getCompany() {
+        return financeUserMapper.getCompany();
+    }
+
+    @Override
+    public boolean delete(int idList) {
+        return removeById(idList);
+    }
+
+    @Override
+    public boolean deleteCompany(String company) {
+        financeUserMapper.deleteCompany1(company);
+        financeUserMapper.deleteCompany2(company);
+        financeUserMapper.deleteCompany3(company);
+        financeUserMapper.deleteCompany4(company);
+        financeUserMapper.deleteCompany5(company);
+        financeUserMapper.deleteCompany6(company);
+        financeUserMapper.deleteCompany7(company);
+        financeUserMapper.deleteCompany8(company);
+        financeUserMapper.deleteCompany9(company);
+        financeUserMapper.deleteCompany10(company);
+        financeUserMapper.deleteCompany11(company);
+        financeUserMapper.deleteCompany12(company);
+        financeUserMapper.deleteCompany13(company);
+        financeUserMapper.deleteCompany14(company);
+        financeUserMapper.deleteCompany15(company);
+        financeUserMapper.deleteCompany16(company);
+        return financeUserMapper.deleteCompany17(company);
+    }
 }

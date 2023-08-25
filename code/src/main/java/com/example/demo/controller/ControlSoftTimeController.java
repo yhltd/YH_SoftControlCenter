@@ -2,21 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.*;
 import com.example.demo.service.*;
-import com.example.demo.util.GsonUtil;
-import com.example.demo.util.ResultInfo;
-import com.example.demo.util.SessionUtil;
-import com.example.demo.util.StringUtils;
+import com.example.demo.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author hui
@@ -60,7 +56,8 @@ public class ControlSoftTimeController {
     private FenquanPower3Service fenquanPower3Service;
     @Autowired
     private FenquanPower4Service fenquanPower4Service;
-
+    @Autowired
+    private CaiJiUserService caiJiUserService;
 
     @RequestMapping("/login")
     public ResultInfo login(HttpSession session, String name, String password) {
@@ -92,6 +89,7 @@ public class ControlSoftTimeController {
         try {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/d");
             if (system.equals("云合未来进销存系统")) {
                 YhJinxiaocunUser yhJinxiaocunUser = new YhJinxiaocunUser();
                 yhJinxiaocunUser.set_id(sdf.format(date));
@@ -101,6 +99,20 @@ public class ControlSoftTimeController {
                 yhJinxiaocunUser.setAdminis("true");
                 yhJinxiaocunUser.setGongsi(company);
                 yhJinxiaocunUserService.add(yhJinxiaocunUser);
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("进销存",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("进销存");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
             } else if (system.equals("云合未来财务系统")) {
                 FinanceUser financeUser = new FinanceUser();
                 FinancePower financePower = new FinancePower();
@@ -111,6 +123,21 @@ public class ControlSoftTimeController {
                 financeUser.setCompany(company);
                 financeUser.setBianhao(sdf.format(date));
                 financeUserService.add(financeUser);
+
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("财务",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("财务");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
 
                 financePower.setBianhao(sdf.format(date));
                 financePower.setBmsz_add("是");
@@ -155,6 +182,21 @@ public class ControlSoftTimeController {
                 gongziUser.setL(company);
                 gongziUserService.add(gongziUser);
 
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("人事",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("人事");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
+
                 List<GongziUser> list = gongziUserService.getId();
                 for (int i = 1; i <= 12; i++) {
                     GongziPower gongziPower = new GongziPower();
@@ -175,6 +217,21 @@ public class ControlSoftTimeController {
                 schedulingUser.setCompany(company);
                 schedulingUser.setState("正常");
                 schedulingUserService.add(schedulingUser);
+
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("排产",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("排产");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
 
                 for (int i = 1; i <= 12; i++) {
                     SchedulingPower schedulingPower = new SchedulingPower();
@@ -218,6 +275,21 @@ public class ControlSoftTimeController {
                 jiaowuUser.setCompany(company);
                 jiaowuUser.setState("正常");
                 jiaowuUserService.add(jiaowuUser);
+
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("教务",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("教务");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
 
                 List<JiaowuUser> list = jiaowuUserService.getId();
 
@@ -265,6 +337,21 @@ public class ControlSoftTimeController {
                 kaUser.setCompany(company);
                 kaUserService.add(kaUser);
 
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("门店",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("门店");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
+
                 List<KaUser> list = kaUserService.getId();
 
                 for (int i = 1; i <= 5; i++) {
@@ -287,6 +374,21 @@ public class ControlSoftTimeController {
                 fenquanUser.setRenyuanId(sdf.format(date));
                 fenquanUser.setZhuangtai("正常");
                 fenquanUserService.add(fenquanUser);
+
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("分权",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("分权");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
 
                 FenquanPower3 fenquanPower3 = new FenquanPower3();
                 fenquanPower3.setCompany(company);
@@ -336,6 +438,29 @@ public class ControlSoftTimeController {
 
                     fenquanPower2Service.add(fenquanPower2);
                 }
+            }else if (system.equals("云合信息采集系统")) {
+                CaiJiUser caiJiUser = new CaiJiUser();
+                caiJiUser.setName("");
+                caiJiUser.setUsername(username);
+                caiJiUser.setPassword(password);
+                caiJiUser.setCompany(company);
+                caiJiUser.setPower("管理员");
+                caiJiUserService.add(caiJiUser);
+
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("采集",company);
+                if(jiami.size() == 0){
+                    ControlSoftTime this_jiami = new ControlSoftTime();
+                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid()) + 1);
+                    this_jiami.setName(company);
+                    this_jiami.setStarttime(sdf2.format(date));
+                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setSoftName("采集");
+                    this_jiami.setMark1("");
+                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark4("1048576");
+                    controlSoftTimeService.add(this_jiami);
+                }
             }
 
             return ResultInfo.success("添加成功");
@@ -343,6 +468,93 @@ public class ControlSoftTimeController {
             e.printStackTrace();
             log.error("添加失败：{}", e.getMessage());
             return ResultInfo.error("添加失败");
+        }
+    }
+
+
+    @RequestMapping("/insertJiami")
+    public ResultInfo insertJiami(@RequestBody String menuSettingsJson, HttpSession session){
+        ControlSoftTime controlSoftTime = null;
+        try{
+            controlSoftTime = DecodeUtil.decodeToJson(menuSettingsJson, ControlSoftTime.class);
+            controlSoftTime = controlSoftTimeService.add(controlSoftTime);
+            if (StringUtils.isNotNull(controlSoftTime)) {
+                return ResultInfo.success("提交成功", controlSoftTime);
+            } else {
+                return ResultInfo.success("提交失败", null);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("添加失败：{}", e.getMessage());
+            return ResultInfo.error("添加失败");
+        }
+    }
+
+    /*
+     *修改
+     * */
+    @RequestMapping(value = "/updateJiami", method = RequestMethod.POST)
+    public ResultInfo updateJiami(@RequestBody String menuSettingsJson ,HttpSession session){
+        ControlSoftTime controlSoftTime = null;
+        try{
+            controlSoftTime = DecodeUtil.decodeToJson(menuSettingsJson, ControlSoftTime.class);
+            if (controlSoftTimeService.update(controlSoftTime)) {
+                return ResultInfo.success("修改成功", controlSoftTime);
+            } else {
+                return ResultInfo.success("修改失败", controlSoftTime);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("修改失败：{}", e.getMessage());
+            return ResultInfo.error("修改失败");
+        }
+    }
+
+    /*
+     *删除
+     * */
+    @RequestMapping("/deleteJiami")
+    public ResultInfo delete(@RequestBody HashMap map, HttpSession session){
+        try{
+            GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
+            List<Integer> idList = GsonUtil.toList(gsonUtil.get("idList"), Integer.class);
+            if (controlSoftTimeService.delete(idList)) {
+                return ResultInfo.success("删除成功", idList);
+            } else {
+                return ResultInfo.success("删除失败", idList);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("删除失败：{}", e.getMessage());
+            return ResultInfo.error("删除失败");
+        }
+    }
+
+    //管理员表单查询
+    @RequestMapping("/getListJiami")
+    public ResultInfo getListJiami(HttpSession session) {
+        try {
+            List<ControlSoftTime> select_list = null;
+            select_list = controlSoftTimeService.getList();
+            return ResultInfo.success("获取成功", select_list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
+
+    //管理员表单查询
+    @RequestMapping("/queryListJiami")
+    public ResultInfo queryListJiami(String query,HttpSession session) {
+        try {
+            List<ControlSoftTime> select_list = null;
+            select_list = controlSoftTimeService.queryList(query);
+            return ResultInfo.success("获取成功", select_list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
         }
     }
 

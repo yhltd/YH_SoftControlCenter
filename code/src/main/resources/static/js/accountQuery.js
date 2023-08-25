@@ -114,6 +114,39 @@ $(function () {
         }
     })
 
+    //点击删除按钮
+    $('#delete-btn').click(function () {
+        var msg = confirm("确认要删除吗？")
+        if (msg) {
+            let rows = getTableSelection("#accountTable");
+            if (rows.length == 0) {
+                alert('请选择要删除的数据！')
+                return;
+            }
+            let idList = [];
+            let systemList = [];
+            $.each(rows, function (index, row) {
+                idList.push(row.data.id)
+                systemList.push(row.data.system);
+            })
+            $ajax({
+                type: 'post',
+                url: '/account/delete',
+                data: JSON.stringify({
+                    idList: idList,
+                    systemList:systemList,
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            }, false, '', function (res) {
+                alert(res.msg);
+                if (res.code == 200) {
+                    getList();
+                }
+            })
+        }
+    })
+
 });
 
 function setTable(data) {

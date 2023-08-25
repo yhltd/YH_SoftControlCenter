@@ -48,6 +48,12 @@ spring:
           url: jdbc:mysql://yhocn.cn/testdb?autoReconnect=true&allowMultiQueries=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
           username: root
           password: Lyh07910
+        caiji:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:sqlserver://yhocn.cn;DatabaseName=yh_xinxicaiji
+          username: sa
+          password: Lyh07910_001
   mvc:
     view:
       suffix: .html

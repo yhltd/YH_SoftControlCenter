@@ -29,6 +29,11 @@ public class FenquanUserServiceImpl extends ServiceImpl<FenquanUserMapper, Fenqu
     }
 
     @Override
+    public List<FenquanUser> getCompany() {
+        return fenquanUserMapper.getCompany();
+    }
+
+    @Override
     public boolean jinyong(int id) {
         return fenquanUserMapper.jinyong(id);
     }
@@ -36,5 +41,21 @@ public class FenquanUserServiceImpl extends ServiceImpl<FenquanUserMapper, Fenqu
     @Override
     public boolean jiejin(int id) {
         return fenquanUserMapper.jiejin(id);
+    }
+
+    @Override
+    public boolean delete(int idList) {
+        return removeById(idList);
+    }
+
+    @Override
+    public boolean deleteCompany(String company) {
+        fenquanUserMapper.deleteCompany1(company);
+        fenquanUserMapper.deleteCompany2(company);
+        fenquanUserMapper.deleteCompany3(company);
+        fenquanUserMapper.deleteCompany4(company);
+        fenquanUserMapper.deleteCompany5(company);
+        fenquanUserMapper.deleteCompany6(company);
+        return fenquanUserMapper.deleteCompany7(company);
     }
 }

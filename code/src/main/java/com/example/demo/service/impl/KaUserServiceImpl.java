@@ -32,4 +32,19 @@ public class KaUserServiceImpl extends ServiceImpl<KaUserMapper, KaUser> impleme
     public List<KaUser> getList(String company, String username) {
         return kaUserMapper.getList(company, username);
     }
+
+    @Override
+    public List<KaUser> getCompany() {
+        return kaUserMapper.getCompany();
+    }
+
+    @Override
+    public boolean delete(int idList) {
+        return removeById(idList);
+    }
+
+    @Override
+    public boolean deleteCompany(String company) {
+        return kaUserMapper.deleteCompany1(company) || kaUserMapper.deleteCompany2(company) || kaUserMapper.deleteCompany3(company) || kaUserMapper.deleteCompany4(company) || kaUserMapper.deleteCompany5(company) || kaUserMapper.deleteCompany6(company) || kaUserMapper.deleteCompany7(company) || kaUserMapper.deleteCompany8(company) || kaUserMapper.deleteCompany9(company);
+    }
 }

@@ -34,6 +34,11 @@ public class SchedulingUserServiceImpl extends ServiceImpl<SchedulingUserMapper,
     }
 
     @Override
+    public List<SchedulingUser> getCompany() {
+        return schedulingUserMapper.getCompany();
+    }
+
+    @Override
     public boolean jinyong(int id) {
         return schedulingUserMapper.jinyong(id);
     }
@@ -41,5 +46,15 @@ public class SchedulingUserServiceImpl extends ServiceImpl<SchedulingUserMapper,
     @Override
     public boolean jiejin(int id) {
         return schedulingUserMapper.jiejin(id);
+    }
+
+    @Override
+    public boolean delete(int idList) {
+        return removeById(idList);
+    }
+
+    @Override
+    public boolean deleteCompany(String company) {
+        return schedulingUserMapper.deleteCompany1(company) || schedulingUserMapper.deleteCompany2(company) || schedulingUserMapper.deleteCompany3(company) || schedulingUserMapper.deleteCompany4(company) || schedulingUserMapper.deleteCompany5(company) || schedulingUserMapper.deleteCompany6(company) || schedulingUserMapper.deleteCompany7(company) || schedulingUserMapper.deleteCompany8(company) || schedulingUserMapper.deleteCompany9(company) || schedulingUserMapper.deleteCompany10(company) || schedulingUserMapper.deleteCompany11(company) || schedulingUserMapper.deleteCompany12(company) || schedulingUserMapper.deleteCompany13(company);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -12,9 +10,9 @@ import lombok.Data;
  */
 @Data
 @TableName("control_soft_time")
-public class ControlSoftTime {
+public class ControlSoftTime2 {
     @TableId(value = "_id")
-    private int Id;
+    private int _id;
     private String name;
     private String starttime;
     private String endtime;
@@ -27,4 +25,5 @@ public class ControlSoftTime {
     private String mark3;
     private String mark4;
     private String mark5;
+    private String maxid;
 }
