@@ -98,6 +98,14 @@ $(function () {
         this_data.softName = this_data.softName.trim()
         this_data.mark1 = this_data.mark1.trim()
         this_data.mark2 = mark2.trim()
+        if(this_data.mark3 != null && this_data.mark3 != ""){
+            this_data.mark3 = this_data.mark3.trim()
+            this_data.mark3 = this_data.mark3.split(":")[1]
+            if(this_data.mark3 != null && this_data.mark3 != ""){
+                this_data.mark3 = this_data.mark3.replace("(","")
+                this_data.mark3 = this_data.mark3.replace(")","")
+            }
+        }
         this_data.mark4 = this_data.mark4.trim()
         setForm(this_data, '#update-form');
     })
@@ -163,6 +171,7 @@ $(function () {
             params.endtime = this_end
             params.mark2 = this_mark2
             params.Id = params.id
+            params.mark3 = "账号数量:(" + params.mark3 + ")"
             console.log(params)
             if (checkForm('#update-form')) {
                 $ajax({
@@ -244,14 +253,14 @@ function setTable(data) {
                 field: 'Id',
                 title: '序号',
                 align: 'center',
-                width: 50,
+                width: 80,
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
             },
             {
                 field: 'name',
-                title: '公司名',
+                title: '公司名(name)',
                 align: 'center',
                 sortable: true,
                 width: 150,
@@ -263,10 +272,10 @@ function setTable(data) {
                 }
             }, {
                 field: 'starttime',
-                title: '开始时间',
+                title: '开始时间(starttime)',
                 align: 'center',
                 sortable: true,
-                width: 150,
+                width: 200,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'
@@ -275,10 +284,10 @@ function setTable(data) {
                 }
             }, {
                 field: 'endtime',
-                title: '软件到期时间',
+                title: '软件到期时间(endtime)',
                 align: 'center',
                 sortable: true,
-                width: 150,
+                width: 200,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'
@@ -288,10 +297,10 @@ function setTable(data) {
             }
             ,{
                 field: 'softName',
-                title: '系统',
+                title: '系统(soft_name)',
                 align: 'center',
                 sortable: true,
-                width: 150,
+                width: 180,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'
@@ -301,7 +310,7 @@ function setTable(data) {
             }
             ,{
                 field: 'mark1',
-                title: '买断',
+                title: '买断(mark1)',
                 align: 'center',
                 sortable: true,
                 width: 150,
@@ -314,10 +323,23 @@ function setTable(data) {
             }
             ,{
                 field: 'mark2',
-                title: '服务器到期时间',
+                title: '服务器到期时间(mark2)',
                 align: 'center',
                 sortable: true,
-                width: 150,
+                width: 200,
+                formatter:function(value, row , index){
+                    if(value == null || value == ''){
+                        value = '-'
+                    }
+                    return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
+                }
+            }
+            ,{
+                field: 'mark3',
+                title: '允许创建账号数量(mark3)',
+                align: 'center',
+                sortable: true,
+                width: 220,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'
@@ -327,10 +349,10 @@ function setTable(data) {
             }
             ,{
                 field: 'mark4',
-                title: '存储空间',
+                title: '存储空间(mark4)',
                 align: 'center',
                 sortable: true,
-                width: 150,
+                width: 180,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'
