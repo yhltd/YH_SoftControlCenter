@@ -25,9 +25,9 @@ public interface ControlSoftTimeMapper extends BaseMapper<ControlSoftTime> {
     @Select("select max(_id) as maxid from control_soft_time")
     List<ControlSoftTime2> selectId();
 
-    @Select("select * from control_soft_time where soft_name='人事' or soft_name='财务' or soft_name='排产' or soft_name='进销存' or soft_name='卡管理' or soft_name='教务' or soft_name='分权' or soft_name='采集' ")
+    @Select("select * from control_soft_time where soft_name='人事' or soft_name='财务' or soft_name='排产' or soft_name='进销存' or soft_name='门店' or soft_name='教务' or soft_name='分权' or soft_name='采集' ")
     List<ControlSoftTime> getList();
 
-    @Select("select * from control_soft_time where (soft_name='人事' or soft_name='财务' or soft_name='排产' or soft_name='进销存' or soft_name='卡管理' or soft_name='教务' or soft_name='分权' or soft_name='采集') and name like '%'+ #{query} +'%' ")
+    @Select("select * from control_soft_time where (soft_name='人事' or soft_name='财务' or soft_name='排产' or soft_name='进销存' or soft_name='门店' or soft_name='教务' or soft_name='分权' or soft_name='采集') and name like '%'+ #{query} +'%' ")
     List<ControlSoftTime> queryList(String query);
 }

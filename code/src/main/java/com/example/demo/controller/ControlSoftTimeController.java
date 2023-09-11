@@ -330,7 +330,7 @@ public class ControlSoftTimeController {
                     jiaowuPower.setSel("√");
                     jiaowuPowerService.add(jiaowuPower);
                 }
-            } else if (system.equals("云合卡管理系统")) {
+            } else if (system.equals("云合智慧门店收银系统")) {
                 KaUser kaUser = new KaUser();
                 kaUser.setAccount(username);
                 kaUser.setPassword(password);

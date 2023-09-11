@@ -134,7 +134,7 @@ public class AccountController {
                         for (KaUser kaUser : kaList) {
                             Account account = new Account();
                             account.setId(kaUser.getId());
-                            account.setSystem("云合卡管理系统");
+                            account.setSystem("云合智慧门店收银系统");
                             account.setCompany(kaUser.getCompany());
                             account.setUsername(kaUser.getAccount());
                             account.setPassword(kaUser.getPassword());
@@ -235,13 +235,13 @@ public class AccountController {
                     }
                     break;
                 }
-                case "云合卡管理系统": {
+                case "云合智慧门店收银系统": {
                     List<KaUser> kaList = kaUserService.getList(company, username);
                     if (kaList != null) {
                         for (KaUser kaUser : kaList) {
                             Account account = new Account();
                             account.setId(kaUser.getId());
-                            account.setSystem("云合卡管理系统");
+                            account.setSystem("云合智慧门店收银系统");
                             account.setCompany(kaUser.getCompany());
                             account.setUsername(kaUser.getAccount());
                             account.setPassword(kaUser.getPassword());
@@ -440,7 +440,7 @@ public class AccountController {
                     }
                     break;
                 }
-                case "云合卡管理系统": {
+                case "云合智慧门店收银系统": {
                     List<KaUser> kaList = kaUserService.getCompany();
                     if (kaList != null) {
                         for (KaUser kaUser : kaList) {
@@ -590,7 +590,7 @@ public class AccountController {
                     case "云合信息采集系统":
                         caiJiUserService.delete(idList.get(i));
                         break;
-                    case "云合卡管理系统":
+                    case "云合智慧门店收银系统":
                         kaUserService.delete(idList.get(i));
                         break;
                     case "云合人事管理系统":
@@ -635,7 +635,7 @@ public class AccountController {
                 case "云合信息采集系统":
                     caiJiUserService.deleteCompany(company);
                     break;
-                case "云合卡管理系统":
+                case "云合智慧门店收银系统":
                     kaUserService.deleteCompany(company);
                     break;
                 case "云合人事管理系统":
