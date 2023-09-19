@@ -54,6 +54,12 @@ spring:
           url: jdbc:sqlserver://yhocn.cn;DatabaseName=yh_xinxicaiji
           username: sa
           password: Lyh07910_001
+        notice:
+          driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          type: com.alibaba.druid.pool.DruidDataSource
+          url: jdbc:sqlserver://yhocn.cn;DatabaseName=yh_notice
+          username: sa
+          password: Lyh07910_001
   mvc:
     view:
       suffix: .html

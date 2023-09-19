@@ -149,6 +149,7 @@ $(function () {
 
 });
 
+
 function setTable(data) {
     if ($('#accountTable').html != '') {
         $('#accountTable').bootstrapTable('load', data);

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>更新公告</title>
+  <script type="text/javascript" src="../js/Jquery.js"></script>
+  <script type="text/javascript" src="../js/jquerysession.js"></script>
+
+  <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+  <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+  <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+  <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+  <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/colResizable-1.6.js"></script>
+  <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-resizable.js"></script>
+
+  <script type="text/javascript" src="../js/editNotice.js"></script>
+  <script type="text/javascript" src="../js/main.js"></script>
+
+  <style>
+    .nav-gonggao{
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      text-align: center;
+      margin-bottom: 2%;
+      margin-top: 3%;
+    }
+
+    .col-lg-6{
+      width: 20%;
+      float: left;
+
+    }
+    .table-div border-top{
+      margin-top: 2%;
+    }
+
+  </style>
+
+</head>
+<body>
+<h1 class="nav-gonggao">更新公告内容</h1>
+
+
+<div class="col-lg-6">
+  <div class="input-group">
+    <input type="text" class="form-control" id="input1" >
+    <span class="input-group-btn">
+        <button class="btn btn-info" type="button" id="check1">
+            搜索
+        </button>
+    </span>
+  </div><!-- /input-group -->
+</div><!-- /.col-lg-6 -->
+<button class="btn btn-info" data-toggle="modal" onclick="javascript:clean()" data-target="#myModal">
+  增加公告
+</button>
+<div class="table-div border-top">
+  <table id="noticeTable"></table>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+<!--          &times;-->
+<!--        </button>-->
+        <h4 class="modal-title" id="myModalLabel">
+          增加公告
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="uname" class="col-sm-3 control-label">当事人</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uname" placeholder="请输入当事人">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="uid" class="col-sm-3 control-label">身份证号</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uid" placeholder="请输入身份证号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">地址</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="address" placeholder="请输入地址">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="uinfo" class="col-sm-2 control-label">信息</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="uinfo" placeholder="请输入信息">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lei" class="col-sm-3 control-label">公告类型</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="lei" placeholder="请输入公告类型">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fdate" class="col-sm-2 control-label">日期</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="fdate" placeholder="请输入发布日期">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="detail" class="col-sm-3 control-label">公告内容</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" size="50" id="detail" placeholder="请输入公告内容">
+            </div>
+          </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+        <button type="button" class="btn btn-primary" id="addnotice">
+          提交
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+
+</table>
+</body>
+</html>

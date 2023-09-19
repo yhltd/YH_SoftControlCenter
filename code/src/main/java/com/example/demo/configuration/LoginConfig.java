@@ -30,7 +30,16 @@ public class LoginConfig implements WebMvcConfigurer {
                 "/css/**",
                 "/js/**",
                 "/bootstrap-4.5.0-dist/**",
-                "/bootstrap-5.1.3-dist/**"
+                "/bootstrap-5.1.3-dist/**",
+                "/html/noticeList.html",
+                "/html/noticeDetail.html",
+                "/notice/getNotice",
+                "/notice/checkNotice",
+                "/notice/checkNoticeByname",
+                "/notice/addNotice",
+                "/notice/delNotice",
+                "/notice/updateNotice",
+                "/html/editNotice.html"
         );
     }
 }
