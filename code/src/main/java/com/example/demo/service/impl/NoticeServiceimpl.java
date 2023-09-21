@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 
 
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.entity.Notice;
 import com.example.demo.mapper.NoticeMapper;
 import com.example.demo.service.NoticeService;
@@ -11,13 +12,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class NoticeServiceimpl implements NoticeService {
+public class NoticeServiceimpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
     @Autowired
     private NoticeMapper noticeMapper;
 
     @Override
     public List<Notice> getNotice(){
         return noticeMapper.getNotice();
+    };
+
+    @Override
+    public List<Notice> getNoticeById(int id){
+        return noticeMapper.getNoticeById(id);
     };
 
     @Override
@@ -31,8 +37,8 @@ public class NoticeServiceimpl implements NoticeService {
     };
 
     @Override
-    public int addNotice(String uname,String uid,String address,String uinfo,String picture,String lei,String fdate,String detail){
-        return noticeMapper.addNotice(uname,uid, address, uinfo,picture,lei, fdate,detail);
+    public int addNotice(String uname,String uid,String address,String uinfo,String lei,String fdate,String detail){
+        return noticeMapper.addNotice(uname,uid, address, uinfo,lei, fdate,detail);
     };
 
     @Override
@@ -41,8 +47,13 @@ public class NoticeServiceimpl implements NoticeService {
     };
 
     @Override
-    public  int updateNotice(int id,String uname,String uid,String address,String uinfo,String picture,String lei,String fdate,String detail){
-        return noticeMapper.updateNotice(id,uname,uid,address,uinfo,picture,lei,fdate,detail);
+    public  int updateNotice(int id,String uname,String uid,String address,String uinfo,String lei,String fdate,String detail){
+        return noticeMapper.updateNotice(id,uname,uid,address,uinfo,lei,fdate,detail);
     };
+
+    @Override
+    public boolean update(Notice notice) {
+        return updateById(notice);
+    }
 
 }

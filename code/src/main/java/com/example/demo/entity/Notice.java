@@ -20,5 +20,8 @@ public class Notice {
     private String lei;
     private String fdate;
     private String detail;
+    private String video;
+    private String pictureName;
+    private String videoName;
     private int id;
 }

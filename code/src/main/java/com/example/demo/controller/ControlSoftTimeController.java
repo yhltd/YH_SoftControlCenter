@@ -90,6 +90,13 @@ public class ControlSoftTimeController {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
             SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/M/d");
+            Date date2 = new Date();//获取当前时间
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date2);
+            calendar.add(Calendar.DATE, 6);
+            date2 = calendar.getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/M/d");//定义日期格式
+            String dateString = dateFormat.format(date2);//将时间格式化为字符串
             if (system.equals("云合未来进销存系统")) {
                 YhJinxiaocunUser yhJinxiaocunUser = new YhJinxiaocunUser();
                 yhJinxiaocunUser.set_id(sdf.format(date));
@@ -106,10 +113,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("进销存");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -131,10 +138,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("财务");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -189,10 +196,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("人事");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -225,10 +232,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("排产");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -283,10 +290,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("教务");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -344,10 +351,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("门店");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -382,10 +389,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("分权");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
@@ -454,10 +461,10 @@ public class ControlSoftTimeController {
                     this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid()) + 1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime("2060/1/1");
+                    this_jiami.setEndtime(dateString);
                     this_jiami.setSoftName("采集");
                     this_jiami.setMark1("");
-                    this_jiami.setMark2("2030/12/31");
+                    this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }

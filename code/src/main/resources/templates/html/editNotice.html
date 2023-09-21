@@ -58,6 +58,7 @@
 <button class="btn btn-info" data-toggle="modal" onclick="javascript:clean()" data-target="#myModal">
   增加公告
 </button>
+<input type="file" id="file" hidden="hidden">
 <div class="table-div border-top">
   <table id="noticeTable"></table>
 </div>
@@ -107,7 +108,7 @@
           <div class="form-group">
             <label for="fdate" class="col-sm-2 control-label">日期</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="fdate" placeholder="请输入发布日期">
+              <input type="date" class="form-control" id="fdate" placeholder="请输入发布日期">
             </div>
           </div>
           <div class="form-group">

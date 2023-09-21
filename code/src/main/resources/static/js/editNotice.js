@@ -1,5 +1,7 @@
 let idd = '';
-
+let p_file;
+let p_fileName
+let p_type
 function getNotice() {
     $ajax({
         type: 'post',
@@ -107,7 +109,6 @@ $(function () {
                     uid:uid,
                     address:address,
                     uinfo:uinfo,
-                    picture:picture,
                     lei:lei,
                     fdate:fdate,
                     detail:detail,
@@ -124,6 +125,49 @@ $(function () {
     });
 
 
+    $('#file').change(function () {
+        var file = document.getElementById("file").files;
+        var oFReader = new FileReader();
+        var this_file = file[0];
+        var fileName = file[0].name;
+        var obj = [];
+        oFReader.readAsDataURL(this_file);
+        oFReader.onloadend = function (oFRevent) {
+            this_file = oFRevent.target.result;
+            if(p_type == 'picture'){
+                obj = {
+                    "id": idd,
+                    "pictureName": fileName,
+                    "picture": this_file,
+                };
+            }else{
+                obj = {
+                    "id": idd,
+                    "videoName": fileName,
+                    "video": this_file,
+                };
+            }
+
+            $ajax({
+                type: 'post',
+                url: '/notice/updFile',
+                data: JSON.stringify({
+                    addInfo: obj
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                async: false,
+            }, false, '', function (res) {
+                if (res.code == 200) {
+                    alert(res.msg)
+                } else {
+                    alert(res.msg)
+                }
+                var fileInput = document.getElementById('file');
+                fileInput.outerHTML = fileInput.outerHTML;
+            })
+        };
+    });
 
 
 });
@@ -177,10 +221,59 @@ function pass(id) {
         }
     })
 
-
-
-
 }
+
+
+function fileShow1(id) {
+    idd = id
+    p_type = 'picture'
+    $ajax({
+        type: 'post',
+        url: '/notice/dowloadFile',
+        data: {
+            id: id,
+        },
+        async: false,
+    }, false, '', function (res) {
+        if (res.data[0].pictureName != '' && res.data[0].pictureName != null) {
+            downloadFileByBase64(res.data[0].pictureName, res.data[0].picture.split(',')[1])
+        } else {
+            alert('请先上传文件！')
+        }
+    })
+}
+
+function fileShow2(id) {
+    idd = id
+    p_type = 'video'
+    $ajax({
+        type: 'post',
+        url: '/notice/dowloadFile',
+        data: {
+            id: id,
+        },
+        async: false,
+    }, false, '', function (res) {
+        if (res.data[0].videoName != '' && res.data[0].videoName != null) {
+            downloadFileByBase64(res.data[0].videoName, res.data[0].video.split(',')[1])
+        } else {
+            alert('请先上传文件！')
+        }
+    })
+}
+
+function fileUp1(id) {
+    idd = id
+    p_type = 'picture'
+    $('#file').trigger('click');
+}
+
+function fileUp2(id) {
+    idd = id
+    p_type = 'picture'
+    $('#file').trigger('click');
+}
+
 // function pass2(id) {
 //     $.session.set('id', id)
 //     $.session.set('type', "删除")
@@ -246,9 +339,19 @@ function setTable(data) {
                 align: 'center',
                 sortable: true,
                 width: 100,
-                // formatter: function (value, row, index) {
-                //     return '<img decoding="async" src="' + img/111.phg + '" class="img-rounded">'   }
+                formatter: function (value, row, index) {
+                    return '<button onclick="javascript:fileShow1(' + row.id + ')" class="btn-sm btn-default">下载</button>' + '<button onclick="javascript:fileUp1(' + row.id + ')" class="btn-sm btn-default">上传</button>'
+                }
 
+            },{
+                field: 'video',
+                title: '视频',
+                align: 'center',
+                sortable: true,
+                width: 100,
+                formatter: function (value, row, index) {
+                    return '<button onclick="javascript:fileShow2(' + row.id + ')" class="btn-sm btn-default">下载</button>' + '<button onclick="javascript:fileUp2(' + row.id + ')" class="btn-sm btn-default">上传</button>'
+                }
             },{
                 field: 'lei',
                 title: '公告类型',
@@ -284,3 +387,86 @@ function setTable(data) {
 
     })
 }
+
+
+function dataURLtoBlob(dataurl, name) {//name:文件名
+    var mime = name.substring(name.lastIndexOf('.') + 1)//后缀名
+    var bstr = atob(dataurl), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type: mime});
+}
+
+function downloadFile(url, name = '默认文件名') {
+    var a = document.createElement("a")//创建a标签触发点击下载
+    a.setAttribute("href", url)//附上
+    a.setAttribute("download", name);
+    a.setAttribute("target", "_blank");
+    let clickEvent = document.createEvent("MouseEvents");
+    clickEvent.initEvent("click", true, true);
+    a.dispatchEvent(clickEvent);
+}
+
+//主函数
+function downloadFileByBase64(name, base64) {
+    var myBlob = dataURLtoBlob(base64, name);
+    var myUrl = URL.createObjectURL(myBlob);
+    downloadFile(myUrl, name)
+}
+
+//获取后缀
+function getType(file) {
+    var filename = file;
+    var index1 = filename.lastIndexOf(".");
+    var index2 = filename.length;
+    var type = filename.substring(index1 + 1, index2);
+    return type;
+}
+
+//根据文件后缀 获取base64前缀不同
+function getBase64Type(type) {
+    switch (type) {
+        case 'data:text/plain;base64':
+            return 'txt';
+        case 'data:application/msword;base64':
+            return 'doc';
+        case 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64':
+            return 'docx';
+        case 'data:application/vnd.ms-excel;base64':
+            return 'xls';
+        case 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64':
+            return 'xlsx';
+        case 'data:application/pdf;base64':
+            return 'pdf';
+        case 'data:application/vnd.openxmlformats-officedocument.presentationml.presentation;base64':
+            return 'pptx';
+        case 'data:application/vnd.ms-powerpoint;base64':
+            return 'ppt';
+        case 'data:image/png;base64':
+            return 'png';
+        case 'data:image/jpeg;base64':
+            return 'jpg';
+        case 'data:image/gif;base64':
+            return 'gif';
+        case 'data:image/svg+xml;base64':
+            return 'svg';
+        case 'data:image/x-icon;base64':
+            return 'ico';
+        case 'data:image/bmp;base64':
+            return 'bmp';
+    }
+}
+
+function base64ToBlob(code) {
+    code = code.replace(/[\n\r]/g, '');
+    const raw = window.atob(code);
+    const rawLength = raw.length;
+    const uInt8Array = new Uint8Array(rawLength);
+    for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i)
+    }
+    return new Blob([uInt8Array], {type: 'application/pdf'})
+}
+
+
