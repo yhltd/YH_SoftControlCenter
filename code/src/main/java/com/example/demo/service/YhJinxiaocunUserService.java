@@ -27,7 +27,7 @@ public interface YhJinxiaocunUserService extends IService<YhJinxiaocunUser> {
      * @param idList 根据id集合删除
      * @return 是否删除成功
      */
-    boolean delete(int idList);
+    boolean delete(String idList);
 
     /**
      * 删除
@@ -36,4 +36,9 @@ public interface YhJinxiaocunUserService extends IService<YhJinxiaocunUser> {
      * @return 是否删除成功
      */
     boolean deleteCompany(String company);
+
+
+    boolean jinyong(String id);
+
+    boolean jiejin(String id);
 }

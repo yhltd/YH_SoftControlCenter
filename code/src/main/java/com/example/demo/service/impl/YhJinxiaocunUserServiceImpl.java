@@ -34,12 +34,23 @@ public class YhJinxiaocunUserServiceImpl extends ServiceImpl<YhJinxiaocunUserMap
     }
 
     @Override
-    public boolean delete(int idList) {
-        return removeById(idList);
+    public boolean delete(String idList) {
+        return yhJinxiaocunUserMapper.delete(idList);
     }
 
     @Override
     public boolean deleteCompany(String company) {
         return yhJinxiaocunUserMapper.deleteCompany1(company) || yhJinxiaocunUserMapper.deleteCompany2(company) || yhJinxiaocunUserMapper.deleteCompany3(company) || yhJinxiaocunUserMapper.deleteCompany4(company) || yhJinxiaocunUserMapper.deleteCompany5(company) || yhJinxiaocunUserMapper.deleteCompany6(company) || yhJinxiaocunUserMapper.deleteCompany7(company) || yhJinxiaocunUserMapper.deleteCompany8(company);
+    }
+
+
+    @Override
+    public boolean jinyong(String id) {
+        return yhJinxiaocunUserMapper.jinyong(id);
+    }
+
+    @Override
+    public boolean jiejin(String id) {
+        return yhJinxiaocunUserMapper.jiejin(id);
     }
 }

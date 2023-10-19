@@ -11,6 +11,12 @@ function getList() {
         },
     }, false, '', function (res) {
         if (res.code == 200) {
+            console.log(res.data)
+            for(var i=0; i<res.data.length; i++){
+                if(res.data[i].idstr != null){
+                    res.data[i].id = res.data[i].idstr
+                }
+            }
             setTable(res.data);
         }
     })
@@ -39,6 +45,11 @@ $(function () {
             },
         }, false, '', function (res) {
             if (res.code == 200) {
+                for(var i=0; i<res.data.length; i++){
+                    if(res.data[i].idstr != null){
+                        res.data[i].id = res.data[i].idstr
+                    }
+                }
                 setTable(res.data);
             }
         })

@@ -160,6 +160,7 @@ public class AccountController {
                         for (YhJinxiaocunUser yhJinxiaocunUser : jxcList) {
                             Account account = new Account();
                             account.setId(0);
+                            account.setIdstr(yhJinxiaocunUser.getIdstr());
                             account.setSystem("云合未来进销存系统");
                             account.setCompany(yhJinxiaocunUser.getGongsi());
                             account.setUsername(yhJinxiaocunUser.getName());
@@ -273,6 +274,7 @@ public class AccountController {
                         for (YhJinxiaocunUser yhJinxiaocunUser : jxcList) {
                             Account account = new Account();
                             account.setId(0);
+                            account.setIdstr(yhJinxiaocunUser.getIdstr());
                             account.setSystem("云合未来进销存系统");
                             account.setCompany(yhJinxiaocunUser.getGongsi());
                             account.setUsername(yhJinxiaocunUser.getName());
@@ -504,19 +506,23 @@ public class AccountController {
     public ResultInfo jinyong(@RequestBody HashMap map, HttpSession session) {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         List<Integer> idList = GsonUtil.toList(gsonUtil.get("idList"), Integer.class);
+        List<String> idList2 = GsonUtil.toList(gsonUtil.get("idList"), String.class);
         List<String> systemList = GsonUtil.toList(gsonUtil.get("systemList"), String.class);
         try {
 
-            for (int i = 0; i < idList.size(); i++) {
+            for (int i = 0; i < idList2.size(); i++) {
                 switch (systemList.get(i)) {
                     case "云合分权编辑系统":
-                        fenquanUserService.jinyong(idList.get(i));
+                        fenquanUserService.jinyong(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合排产管理系统":
-                        schedulingUserService.jinyong(idList.get(i));
+                        schedulingUserService.jinyong(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合未来教务系统":
-                        jiaowuUserService.jinyong(idList.get(i));
+                        jiaowuUserService.jinyong(Integer.parseInt(idList2.get(i)));
+                        break;
+                    case "云合未来进销存系统":
+                        yhJinxiaocunUserService.jinyong(idList2.get(i));
                         break;
                 }
             }
@@ -538,19 +544,23 @@ public class AccountController {
     public ResultInfo jiejin(@RequestBody HashMap map, HttpSession session) {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         List<Integer> idList = GsonUtil.toList(gsonUtil.get("idList"), Integer.class);
+        List<String> idList2 = GsonUtil.toList(gsonUtil.get("idList"), String.class);
         List<String> systemList = GsonUtil.toList(gsonUtil.get("systemList"), String.class);
         try {
 
-            for (int i = 0; i < idList.size(); i++) {
+            for (int i = 0; i < idList2.size(); i++) {
                 switch (systemList.get(i)) {
                     case "云合分权编辑系统":
-                        fenquanUserService.jiejin(idList.get(i));
+                        fenquanUserService.jiejin(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合排产管理系统":
-                        schedulingUserService.jiejin(idList.get(i));
+                        schedulingUserService.jiejin(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合未来教务系统":
-                        jiaowuUserService.jiejin(idList.get(i));
+                        jiaowuUserService.jiejin(Integer.parseInt(idList2.get(i)));
+                        break;
+                    case "云合未来进销存系统":
+                        yhJinxiaocunUserService.jiejin(idList2.get(i));
                         break;
                 }
             }
@@ -573,34 +583,35 @@ public class AccountController {
     public ResultInfo delete(@RequestBody HashMap map, HttpSession session) {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         List<Integer> idList = GsonUtil.toList(gsonUtil.get("idList"), Integer.class);
+        List<String> idList2 = GsonUtil.toList(gsonUtil.get("idList"), String.class);
         List<String> systemList = GsonUtil.toList(gsonUtil.get("systemList"), String.class);
         try {
 
-            for (int i = 0; i < idList.size(); i++) {
+            for (int i = 0; i < idList2.size(); i++) {
                 switch (systemList.get(i)) {
                     case "云合分权编辑系统":
-                        fenquanUserService.delete(idList.get(i));
+                        fenquanUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合排产管理系统":
-                        schedulingUserService.delete(idList.get(i));
+                        schedulingUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合未来教务系统":
-                        jiaowuUserService.delete(idList.get(i));
+                        jiaowuUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合信息采集系统":
-                        caiJiUserService.delete(idList.get(i));
+                        caiJiUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合智慧门店收银系统":
-                        kaUserService.delete(idList.get(i));
+                        kaUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合人事管理系统":
-                        gongziUserService.delete(idList.get(i));
+                        gongziUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合未来财务系统":
-                        financeUserService.delete(idList.get(i));
+                        financeUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
                     case "云合未来进销存系统":
-                        yhJinxiaocunUserService.delete(idList.get(i));
+                        yhJinxiaocunUserService.delete(idList2.get(i));
                         break;
                 }
             }

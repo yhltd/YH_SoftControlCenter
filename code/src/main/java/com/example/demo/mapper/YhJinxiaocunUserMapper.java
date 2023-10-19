@@ -6,6 +6,7 @@ import com.example.demo.entity.YhJinxiaocunUser;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @Repository
 @DS("jxc")
 public interface YhJinxiaocunUserMapper extends BaseMapper<YhJinxiaocunUser> {
-    @Select("select * from yh_jinxiaocun_user where gongsi like concat('%',#{company},'%') and `name` like concat('%',#{username},'%') ")
+    @Select("select *,_id as idstr from yh_jinxiaocun_user where gongsi like concat('%',#{company},'%') and `name` like concat('%',#{username},'%') ")
     List<YhJinxiaocunUser> getList(String company, String username);
 
     @Select("select gongsi from yh_jinxiaocun_user group by gongsi ")
@@ -47,4 +48,13 @@ public interface YhJinxiaocunUserMapper extends BaseMapper<YhJinxiaocunUser> {
 
     @Delete("delete from yh_jinxiaocun_zhengli where gs_name=#{company} ")
     boolean deleteCompany8(String company);
+
+    @Delete("delete from yh_jinxiaocun_user where _id=#{idList} ")
+    boolean delete(String idList);
+
+    @Update("update yh_jinxiaocun_user set Btype='锁定' where _id=#{id} ")
+    boolean jinyong(String id);
+
+    @Update("update yh_jinxiaocun_user set Btype='正常' where _id=#{id} ")
+    boolean jiejin(String id);
 }
