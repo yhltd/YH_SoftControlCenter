@@ -22,7 +22,9 @@ public interface KaUserMapper extends BaseMapper<KaUser> {
     @Select("select * from users order by id desc")
     List<KaUser> getId();
 
-    @Select("select * from users where company like concat('%',#{company},'%') and uname like concat('%',#{username},'%') ")
+//    @Select("select * from users where company like concat('%',#{company},'%') and uname like concat('%',#{username},'%') ")
+//    305改 因为门店收银系统 因为SQL语句字段uname 写的不对查询的是用户名 应该查询账号所以查询不到账号数据 uname改成account
+    @Select("select * from users where company like concat('%',#{company},'%') and account like concat('%',#{username},'%') ")
     List<KaUser> getList(String company, String username);
 
     @Select("select company from users group by company")
