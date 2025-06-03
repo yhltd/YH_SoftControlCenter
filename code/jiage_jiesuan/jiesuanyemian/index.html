@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>订单页面</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        /
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .header .links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .order-summary span {
+            font-weight: bold;
+        }
+
+        .order-table th, .order-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .order-table th {
+            background-color: #f2f2f2;
+        }
+
+        .payment-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-method {
+            width: 48%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .payment-method.selected {
+            border: 2px solid #007bff;
+        }
+
+        .payment-method p {
+            margin: 10px 0;
+        }
+
+        .footer {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .footer button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* 新增样式补充 */
+        .card-payment {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: inline-block;
+            width: 80px;
+            color: #666;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .amount-summary {
+            margin-bottom: 15px;
+        }
+
+        .total-amount {
+            color: #ff4d4f;
+            font-size: 24px;
+        }
+
+        .tip {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .payment-section {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+        }
+
+        /*32131231332*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 0 20px;
+            height: 60px;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+
+        /* 下拉选项样式 */
+        .dropdown-select option {
+            background-color: #444;
+            color: white;
+        }
+
+        /*服务说明样式*/
+        .container2 {
+            display: flex;
+            align-items: center;
+            background-color: #fff7e6;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .highlight {
+             padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 10px;
+            color: var(--secondary-color);
+            font-weight: 600;
+
+        }
+
+        .text {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .link {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        :root {
+            --primary-color: #2979ff;
+            --secondary-color: #ff7500;
+            --border-color: #e0e0e0;
+        }
+
+
+        .continer3 {
+            max-width: 100%; /* 重要修改 */
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow-x: auto; /* 关键属性 */
+            -webkit-overflow-scrolling: touch; /* 移动端流畅滚动 */
+        }
+
+
+        .continer3 {
+            max-width: 100%; /* 重要修改 */
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow-x: auto; /* 关键属性 */
+            -webkit-overflow-scrolling: touch; /* 移动端流畅滚动 */
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .continer3 {
+                border-radius: 8px;
+                padding: 10px;
+                margin: 0 10px;
+            }
+
+            .table-continer3 {
+                font-size: 14px; /* 缩小字号 */
+            }
+
+            .table-continer3 td,
+            .table-continer3 th {
+                padding: 8px 10px; /* 减小内边距 */
+            }
+
+            .highlight {
+                display: block; /* 移动端换行显示 */
+                margin-top: 5px;
+            }
+        }
+
+        /*鼠标悬浮样式*/
+        .hover-btn {
+            position: relative;
+            padding: 12px 24px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* 悬停面板 - 默认隐藏 */
+        .hover-panel {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        /* 悬停时显示 */
+        .hover-btn:hover .hover-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+        }
+
+        /* 面板内容样式 */
+        .panel-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .image {
+            width: 260px; /* 您可以根据需要调整这个宽度 */
+            height: auto; /* 保持图片的宽高比 */
+            margin-right: 10px; /* 图片与按钮之间的间距 */
+        }
+
+        @media (max-width: 768px) {
+            .image {
+                width: 100px; /* 小屏幕上调整图片大小 */
+            }
+
+
+            .hover-btn {
+                padding: 8px 16px; /* 小屏幕上调整按钮大小 */
+            }
+        }
+
+        .table-continer3 tbody.hidden {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-method.active {
+            border-color: #007bff;
+            background: #f8f9fa;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+        }
+
+        .payment-method h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .payment-method p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /*--------------------- 底部 -------------------*/
+        .reason {
+            width: 100%;
+            background: linear-gradient(180deg, #EAF3FC 0%, rgba(255, 255, 255, 0) 100%);
+            overflow: hidden;
+        }
+
+        div {
+            display: block;
+        }
+
+        .reason-box {
+            margin-bottom: 10px;
+        }
+
+        .content-text-first {
+            font-size: 36px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: #333333;
+            line-height: 36px;
+            /* margin-top: 100px; */
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .content-text-second {
+            font-size: 16px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: #777777;
+            line-height: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .reason-he {
+            width: 1200px;
+            display: flex;
+            justify-content: flex-start;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .reason-he-content:nth-child(3n+1) {
+            margin-left: 0px;
+        }
+
+        .reason-he-content {
+            margin-left: 2%;
+            margin-top: 33px;
+            padding-bottom: 30px;
+        }
+
+        .reason-he-content-title {
+            font-size: 22px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+
+
+        .reason-he-content-text {
+            /* height: 85px; */
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 500;
+            color: #fff;
+            line-height: 26px;
+            text-align: left;
+            padding: 2px 35px;
+            margin-top: 15px;
+        }
+
+        div {
+            display: block;
+        }
+
+        .reason-he-content {
+            box-shadow: none;
+            border-top: none;
+            text-align: left;
+            margin-top: 1px;
+        }
+
+        .reason-he-content {
+            width: 32%;
+            height: 334px;
+            background: #0b1d2d;
+            box-shadow: 1px 6px 10px 1px rgba(0, 134, 241, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            display: block;
+            font-size: 2em;
+            margin-block-start: 0.67em;
+            margin-block-end: 0.67em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: bold;
+        }
+
+        .reason-he-content-title {
+            text-align: left;
+            font-size: 24px;
+            color: #fff;
+            line-height: 33px;
+            padding-top: 20px;
+        }
+
+        #dataContainer td {
+            border-bottom: 1px solid grey; /* 仅限数据行的单元格 */
+            padding: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        /* 新增响应式代码 */
+        @media screen and (max-width: 1200px) {
+            .reason-he {
+                width: 90%;
+                max-width: 1000px;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .reason-he-content {
+                width: 48%;
+                margin-left: 2%;
+                margin-top: 20px;
+            }
+
+            .reason-he-content:nth-child(2n+1) {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .content-text-first {
+                font-size: 28px;
+                padding-top: 50px;
+            }
+
+            .reason-he {
+                width: 95%;
+                justify-content: center;
+            }
+
+            .reason-he-content {
+                width: 100%;
+                margin-left: 0;
+                height: auto;
+                padding-bottom: 20px;
+            }
+
+            .reason-he-content-title {
+                font-size: 20px;
+                padding: 15px 25px 0;
+            }
+
+            .reason-he-content-text {
+                padding: 0 25px;
+                font-size: 14px;
+            }
+
+            /* 表格自适应 */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .content-text-first {
+                font-size: 24px;
+                padding-top: 30px;
+                line-height: 1.2;
+            }
+
+            .content-text-second {
+                font-size: 14px;
+                margin-top: 15px;
+                padding: 0 15px;
+            }
+
+            #dataContainer td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .reason-he-content-title {
+                font-size: 18px;
+                line-height: 1.3;
+            }
+        }
+
+        /* 表头最后一行（标题行）的底部边框 */
+        .table-continer3 thead tr:last-child th {
+            border-bottom: 1px solid #00f;
+        }
+
+        /* 折叠时的样式 */
+        .table-continer3.collapsed {
+            border: none; /* 隐藏外边框 */
+        }
+
+        .table-continer3.collapsed thead tr:last-child th {
+            border-bottom: none; /* 隐藏表头底部边框 */
+        }
+
+        /* 隐藏数据行 */
+        #dataContainer.hidden {
+            display: none;
+        }
+
+
+        /* 新增交互状态 */
+        .coupon-radio:checked + .coupon-content {
+            border-color: #2196F3;
+            background-color: #f5faff;
+        }
+
+        /* 给整个表格加边框 */
+        table {
+            border: 1px solid #ddd;       /* 表格外边框 */
+            /*border-collapse: collapse;    !* 合并单元格边框 *!*/
+            /*width: 100%;                 !* 按需设置表格宽度 *!*/
+        }
+
+        /* 给所有单元格(包括表头)加边框和内边距 */
+        th, td {
+            /*border: 1px solid #ddd;      !* 单元格边框 *!*/
+            padding: 12px;               /* 单元格内边距 */
+            text-align: left;            /* 文本左对齐 */
+        }
+
+        /* 给第一行加浅蓝色背景 */
+        thead tr.header-toggle {
+            background-color: #eaf7fc;   /* 浅蓝色 */
+        }
+
+        /* 调整特殊元素的文本对齐 */
+        .highlight,
+        .total-amount {
+            margin-left: 20px;           /* 增加金额之间的间距 */
+        }
+
+        ul {
+            list-style: none;
+        }
+
+
+
+
+
+
+        .coupon-selector {
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'PingFang SC', sans-serif;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .coupon-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .tab-group {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 8px 0;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .tab.active {
+            color: #ff4d4f;
+            border-bottom-color: #ff4d4f;
+            font-weight: bold;
+        }
+
+        .coupon-list {
+            margin-bottom: 20px;
+        }
+
+        .coupon-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fff8f8;
+            border: 1px dashed #ff4d4f;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .coupon-item.selected {
+            background: #ffeeee;
+            border-style: solid;
+        }
+
+        .coupon-value {
+            min-width: 80px;
+            text-align: center;
+            color: #ff4d4f;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .coupon-details {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .coupon-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .coupon-expiry {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .coupon-actions {
+            text-align: right;
+        }
+
+        .btn-confirm {
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="nav-bar">
+    <a href="h"><img src="images/shangbiao.png" class="image"></a>
+    <button class="hover-btn">
+        选择其他云合未来产品
+        <div class="hover-panel">
+            <div class="panel-content">
+                <p>选择其他云合未来产品：</p>
+                <ul>
+                    <li><a href="">云合未来·进销存</a></li>
+                    <li><a href="">云合未来·人事管理</a></li>
+                    <li><a href="">云合未来·财务管理</a></li>
+                    <li><a href="">云合未来·分权系统管理</a></li>
+                    <li><a href="">云合未来·智慧门店管理系统</a></li>
+                    <li><a href="">云合未来·排产系统</a></li>
+                    <li><a href="">云合未来·教务系统</a></li>
+                    <li><a href="">云合未来·采集系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </button>
+
+</nav>
+
+<div style=" margin-top: 10px; padding: 10px;">
+    <div class="container">
+        <div class="header">
+            <h1>支付订单</h1>
+            <div class="order-summary">
+
+                <!-- 订单管理项 -->
+                <div class="icon-container">
+                    <span class="icon">&#x1F4EE;</span> <!-- 使用Unicode字符表示包裹或订单图标 -->
+                    <span class="text"><a href="">订单管理</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="container2">
+            <span class="highlight">服务说明</span>
+            <div class="text">
+                所有消费（包括购买、开通、续费等）均可开票，订单支付并发货成功后，可前往<a href="#" class="link">费用中心 > 发票管理 开票</a>
+            </div>
+        </div>
+
+        <div class="section-title">待支付订单</div>
+        <div class="order-details-content">
+            <div class="continer3">
+                <table class="table-continer3">
+                    <thead>
+                    <tr class="header-toggle">
+                        <th>▼预付费订单(<span id="orderCount">0</span>)</th>
+                        <th colspan="8" style="text-align: right">
+                            实付金额
+                            <span class="highlight">共省<span id="totalSaved">0.00</span>元</span>
+                            <span class="total-amount">¥<span id="totalAmount">0.00</span></span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>订单号</td>
+                        <td>产品名称</td>
+                        <td>配置</td>
+                        <td>类型</td>
+                        <td>单价</td>
+                        <td>数量</td>
+                        <td>时长</td>
+                        <td>总价</td>
+                        <td>订单金额</td>
+                    </tr>
+                    </thead>
+                    <tbody id="dataContainer">
+                    <!-- 动态数据将在此渲染 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<br>
+<br>
+<br>
+<br>
+        <div class="order-details-conten">
+            <div class="coupon-header">
+                <h3>选择优惠券</h3>
+                <div class="tab-group">
+                    <button class="tab active" data-type="cash">代金券</button>
+                    <button class="tab" data-type="discount">折扣券</button>
+                </div>
+            </div>
+
+            <div class="coupon-list" id="couponContainer">
+                <!-- 动态生成的优惠券将在这里显示 -->
+            </div>
+
+            <div class="coupon-actions">
+                <button class="btn-confirm">确认使用</button>
+            </div>
+        </div>
+
+
+        <div class="section">
+            <div class="section-title">选择支付方式</div>
+            <div class="payment-section">
+                <div class="payment-method" onclick="selectPayment(this)">
+                    <h3 style="text-align: left">零钱支付</h3>
+                    <p style="text-align: left"> 账户可用余额：<span class="total-amount">¥<span id="yhye">0.00</span></span>
+                    </p>
+                </div>
+                <div class="payment-method" onclick="selectPayment(this)">
+                    <h3 style="text-align: left">在线支付</h3>
+                    <p style="text-align: left">支持 微信 支付宝 银行卡等支付方式</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer">
+            <div class="amount-summary">
+                <p>合计:<span class="total-amount">¥<span id="totalAmount1">0.00</span></span>
+                </p>
+                <p class="tip">（含增值税 ¥）</p>
+            </div>
+            <div class="payment-actions">
+                <button onclick="submitPayment()" style="margin-top:20px;padding:12px 40px">
+                    立即支付
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="reason">
+    <div class="reason-box">
+        <div class="content-text-first">为什么选择云合未来</div>
+        <div class="content-text-second">云合未来，实现云端互联网技术与多平台在线交互模式创新</div>
+    </div>
+    <div class="reason-he">
+
+        <div class="reason-he-content">
+            <h1 class="reason-he-content-title" style="color: #fff;">技术</h1>
+            <div class="reason-he-content-text" style="color: #fff;">
+                云合未来把握前沿技术，在各类软件定制、IT技术服务外包（人力外派）、大数据处理、办公自动化工具，桌面仿人工RPA，移动互联、电子商务、云计算、大数据、物联网等领域自主研发了多项技术解决方案，基于IT业务的生命周期，建立了ONE
+                STOP一站式服务；涵盖云技术、大数据、移动终端，由后台到前台，可实现由云到端的方案整体技术架构体系、应用方案体系的构建。不断创新，数字化将人们联系起来
+            </div>
+            <!--            <img class="reason-he-content-tu" src="/r/cms/www/default/v0.1/images/aggregation-new-pc/k1.png" alt="">-->
+        </div>
+        <div class="reason-he-content">
+            <h1 class="reason-he-content-title">介绍</h1>
+            <div class="reason-he-content-text">
+                云合未来总部设在北京，在大连设有分支机构，服务网络遍及全国。公司内部实行网络化管理，依托先进的计算机辅助设计系统和计算机管理系统，实现规范化运作，在最短的时间内为用户提供高品质的软件服务产品。
+                公司本着技术领先、质量第一、客户至上的原则为广大用户提供满意的服务。
+            </div>
+            <!--            <img class="reason-he-content-tu" src="/r/cms/www/default/v0.1/images/aggregation-new-pc/k2.png" alt="">-->
+        </div>
+        <div class="reason-he-content">
+            <h1 class="reason-he-content-title">服务</h1>
+            <div class="reason-he-content-text">
+                目前云合未来为国内、外超过1万家的企业提供了网站建设、软件定制、人员外派驻场、自动化RPA、软件系统IT托管服务，同时为近千家的企业设计开发了基于互联网的各类商务应用和管理软件，是国内具影响力的互联网应用服务商之一。公司将坚持客户导向、应用为本的策略，继续专注于在信息技术领域开拓发展成为企业、政府、办公信息化的推动者和服务者。
+            </div>
+            <!--            <img class="reason-he-content-tu" src="/r/cms/www/default/v0.1/images/aggregation-new-pc/k3.png" alt="">-->
+        </div>
+    </div>
+</div>
+
+<script>
+    const mockData = {
+        orders: [
+            {
+                id: 1,
+                orderNumber: "20250210703081897240271",
+                productName: "云合未来进销存系统·小程序",
+                specification: "详情",
+                type: "新购",
+                unitPrice: "318.00元/年",
+                quantity: "x1",
+                duration: "3年",
+                totalPrice: "954.00元",
+                orderAmount: "715.50元"
+            },
+            {
+                id: 2,
+                orderNumber: " 40271",
+                productName: "云合未来进销存系统·app",
+                specification: "详情",
+                type: "新购",
+                unitPrice: "31831元/年",
+                quantity: "x1",
+                duration: "3年",
+                totalPrice: "954.00元",
+                orderAmount: "715.50元"
+            },
+            // 可添加更多订单数据...
+        ],
+        totalSaved: 238.50,
+        totalAmount: 715.50,
+        totalAmount1: 15.50,
+        yhye: 238.50
+    }
+
+    // 动态渲染函数
+    function renderTable(data) {
+        const tbody = document.getElementById('dataContainer');
+        const orderCount = document.getElementById('orderCount');
+        const totalSaved = document.getElementById('totalSaved');
+        const totalAmount = document.getElementById('totalAmount');
+        const totalAmount1 = document.getElementById('totalAmount1');
+        const yhye = document.getElementById('yhye');
+        // 清空现有数据
+        tbody.innerHTML = '';
+
+        // 渲染数据行
+        data.orders.forEach(order => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${order.orderNumber}</td>
+            <td>${order.productName}</td>
+            <td>${order.specification}</td>
+            <td>${order.type}</td>
+            <td>${order.unitPrice}</td>
+            <td>${order.quantity}</td>
+            <td>${order.duration}</td>
+            <td>${order.totalPrice}</td>
+            <td>${order.orderAmount}</td>
+        `;
+            tbody.appendChild(tr);
+        });
+
+        // 更新统计信息
+        orderCount.textContent = data.orders.length;
+        totalSaved.textContent = data.totalSaved.toFixed(2);
+        totalAmount.textContent = data.totalAmount.toFixed(2);
+        totalAmount1.textContent = data.totalAmount1.toFixed(2);
+        yhye.textContent = data.yhye.toFixed(2);
+    }
+
+
+    document.querySelector('.header-toggle').addEventListener('click', function () {
+        const tbody = document.getElementById('dataContainer');
+        const table = document.querySelector('.table-continer3');
+
+        // 切换数据行隐藏
+        tbody.classList.toggle('hidden');
+        // 切换表格边框状态
+        table.classList.toggle('collapsed');
+    });
+
+    // 初始化加载数据
+    window.addEventListener('DOMContentLoaded', () => {
+        // 实际使用时替换为真实的API请求
+        // fetch('/api/orders')
+        //     .then(response => response.json())
+        //     .then(renderTable)
+        //     .catch(console.error);
+
+        // 使用模拟数据
+        setTimeout(() => renderTable(mockData), 500);
+    });
+
+    let selectedPayment = null; // 存储当前选中方式
+
+    function selectPayment(element) {
+        // 移除所有激活状态
+        document.querySelectorAll('.payment-method').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // 设置当前选中状态
+        element.classList.add('active');
+        selectedPayment = element.querySelector('h3').innerText.trim();
+
+        // 调试输出（正式环境替换为支付逻辑）
+        console.log('当前选择:', selectedPayment);
+    }
+
+    // 支付提交函数（需与后端对接）
+    function submitPayment() {
+        if (!selectedPayment) {
+            alert('请选择支付方式');
+            return;
+        }
+
+        // 根据选择类型执行不同支付流程
+        if (selectedPayment === '零钱支付') {
+            handleBalancePayment();
+        } else if (selectedPayment === '在线支付') {
+            handleOnlinePayment();
+        }
+    }
+
+    // 示例支付处理方法
+    function handleBalancePayment() {
+        // 调用零钱支付接口:ml-citation{ref="1,5" data="citationList"}
+        console.log('执行零钱支付流程...');
+
+    }
+
+    function handleOnlinePayment() {
+        // 调用第三方支付接口:ml-citation{ref="2,6" data="citationList"}
+        // console.log('跳转第三方支付...');
+        window.location.href = './zhifu.html';
+    }
+
+</script>
+
+<script>
+    // 模拟数据 - 实际使用时替换为API获取
+    const couponData = {
+        cash: [
+            { id: 1, value: 50, title: "满200减50", expiry: "2025-06-30" },
+            { id: 2, value: 100, title: "满500减100", expiry: "2025-07-15" }
+        ],
+        discount: [
+            { id: 3, discount: 8, title: "8折", expiry: "2025-06-20" },
+            { id: 4, discount: 9, title: "9折", expiry: "2025-07-01" }
+        ]
+    };
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        renderCoupons('cash');
+
+        // 标签切换
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderCoupons(this.dataset.type);
+            });
+        });
+    });
+
+    function renderCoupons(type) {
+        const container = document.getElementById('couponContainer');
+        container.innerHTML = '';
+
+        if (couponData[type].length === 0) {
+            container.innerHTML = '<div class="no-coupon">暂无可用优惠券</div>';
+            return;
+        }
+
+        couponData[type].forEach(coupon => {
+            const item = document.createElement('div');
+            item.className = 'coupon-item';
+            item.dataset.id = coupon.id;
+
+            if (type === 'cash') {
+                item.innerHTML = `
+        <div class="coupon-value">¥${coupon.value}</div>
+        <div class="coupon-details">
+          <div class="coupon-title">${coupon.title}</div>
+          <div class="coupon-expiry">有效期至${coupon.expiry}</div>
+        </div>
+      `;
+            } else {
+                item.innerHTML = `
+        <div class="coupon-value">${coupon.discount}折</div>
+        <div class="coupon-details">
+          <div class="coupon-title">${coupon.title}</div>
+          <div class="coupon-expiry">有效期至${coupon.expiry}</div>
+        </div>
+      `;
+            }
+
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.coupon-item').forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+                // 这里可以添加选中优惠券的逻辑
+            });
+
+            container.appendChild(item);
+        });
+    }
+</script>
+</body>
+</html>
+</body>
+</html>
