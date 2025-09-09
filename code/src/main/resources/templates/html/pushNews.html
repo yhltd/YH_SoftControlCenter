@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息推送</title>
+    <link rel="shortcut icon" href="#"/>
+
+    <script type="text/javascript" src="../js/Jquery.js"></script>
+    <script type="text/javascript" src="../js/jquerysession.js"></script>
+
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/colResizable-1.6.js"></script>
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap-table-resizable.js"></script>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/pushNews.css">
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/pushNews.js"></script>
+</head>
+
+<body class="pt-2" style="width: 98%;margin-left: 2%">
+<div class="top-toolbar row">
+    <div class="col-md-3 mb-2">
+        <select id="system" class="form-control">
+            <option value="云合未来财务系统">云合未来财务系统</option>
+            <option value="云合人事管理系统">云合人事管理系统</option>
+            <option value="云合未来进销存系统">云合未来进销存系统</option>
+            <option value="云合排产管理系统">云合排产管理系统</option>
+            <option value="云合分权编辑系统">云合分权编辑系统</option>
+            <option value="云合未来教务系统">云合未来教务系统</option>
+            <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
+            <option value="云合信息采集系统">云合信息采集系统</option>
+        </select>
+    </div>
+    <div class="col-md-3 mb-2">
+        <input id="company" type="text" class="form-control" placeholder="公司名" autocomplete="off">
+    </div>
+    <div class="col-md-2 mb-2">
+        <button id="select-btn" class="btn btn-primary">
+
+            查询
+        </button>
+    </div>
+</div>
+
+<div id="table-toolbar">
+    <div class="btn-group" role="group">
+        <button id="refresh-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            刷新
+        </button>
+        <button id="xinzeng-btn" class="btn btn-primary">
+            <i class="bi bi-plus-circle-fill"></i>
+            新增
+        </button>
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：信息推送</a>
+    </div>
+</div>
+
+<!--<div class="table-div border-top">-->
+<!--    <table id="accountTable"></table>-->
+<!--</div>-->
+<div class="table-div" style="margin-top: 20px;">
+    <!-- 表格会在这里动态生成 -->
+</div>
+
+<div id="delete-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">提示</div>
+            </div>
+            <div id="delete-modal-body" class="modal-body">
+                确定禁用吗？
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="add-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-plus-circle-fill text-success"></i> 新增推送信息</h5>
+
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <div class="mb-3">
+                        <label>公司名称</label>
+                        <input type="text" class="form-control" name="gsname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>关联系统</label>
+                        <select class="form-select" name="xtname" required>
+                            <option value="">请选择</option>
+                            <option value="云合未来财务系统">云合未来财务系统</option>
+                            <option value="云合人事管理系统">云合人事管理系统</option>
+                            <option value="云合未来进销存系统">云合未来进销存系统</option>
+                            <option value="云合排产管理系统">云合排产管理系统</option>
+                            <option value="云合分权编辑系统">分权编辑系统</option>
+                            <option value="云合未来教务系统">教务管理系统</option>
+                            <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
+                            <option value="云合信息采集系统">云合未来信息采集系统</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>文本框内容</label>
+                        <textarea class="form-control" rows="5" name="textbox" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>轮播图片1</label>
+                        <input type="file" class="form-control" name="tptop2" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>轮播图片2</label>
+                        <input type="file" class="form-control" name="tptop3" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>轮播图片3</label>
+                        <input type="file" class="form-control" name="tptop4" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>轮播图片4</label>
+                        <input type="file" class="form-control" name="tptop5" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>轮播图片5</label>
+                        <input type="file" class="form-control" name="tptop6" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>悬浮图片</label>
+                        <input type="file" class="form-control" name="tptop1" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>悬浮图片宽度（像素）</label>
+                        <input type="number" class="form-control" name="xuankuan">
+                        <small class="form-text text-muted">建议设置范围：300-800像素，推荐值为400像素</small>
+                    </div>
+                    <div class="mb-3">
+                        <label>顶部图片高度（像素）</label>
+                        <input type="number" class="form-control" name="topgao">
+                        <small class="form-text text-muted">建议设置范围：100-300像素，推荐值为200像素</small>
+                    </div>
+                    <div class="mb-3">
+                        <label>推送起始日期</label>
+                        <input type="date" class="form-control" name="qidate">
+                    </div>
+                    <div class="mb-3">
+                        <label>推送截止日期</label>
+                        <input type="date" class="form-control" name="zhidate">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> 取消
+                </button>
+                <button type="submit" form="add-form" class="btn btn-success">
+                    <i class="bi bi-check-circle-fill"></i> 确认提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-pencil-square text-primary"></i> 编辑推送信息</h5>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form">
+                    <input type="hidden" name="id">
+
+                    <!-- 基本信息 -->
+                    <div class="mb-3">
+                        <label>公司名称</label>
+                        <input type="text" class="form-control" name="gsname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>关联系统</label>
+                        <select class="form-select" name="xtname" required>
+                            <option value="">请选择</option>
+                            <option value="云合未来财务系统">云合未来财务系统</option>
+                            <option value="云合人事管理系统">云合人事管理系统</option>
+                            <option value="云合未来进销存系统">云合未来进销存系统</option>
+                            <option value="云合排产管理系统">云合排产管理系统</option>
+                            <option value="云合分权编辑系统">分权编辑系统</option>
+                            <option value="云合未来教务系统">教务管理系统</option>
+                            <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
+                            <option value="云合信息采集系统">云合未来信息采集系统</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>文本框内容</label>
+                        <textarea class="form-control" rows="5" name="textbox" required></textarea>
+                    </div>
+
+                    <!-- 图片上传区域 -->
+                    <div class="row">
+                        <!-- 悬浮图片 -->
+                        <div class="col-md-6 mb-3">
+                            <label>悬浮图片</label>
+                            <input type="file" class="form-control" name="tptop1" accept="image/*" onchange="previewImage(this, 'preview-tptop1')">
+                            <div class="mt-2">
+                                <img id="preview-tptop1" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop1', 'preview-tptop1')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 轮播图片1 -->
+                        <div class="col-md-6 mb-3">
+                            <label>轮播图片1</label>
+                            <input type="file" class="form-control" name="tptop2" accept="image/*" onchange="previewImage(this, 'preview-tptop2')">
+                            <div class="mt-2">
+                                <img id="preview-tptop2" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop2', 'preview-tptop2')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 轮播图片2 -->
+                        <div class="col-md-6 mb-3">
+                            <label>轮播图片2</label>
+                            <input type="file" class="form-control" name="tptop3" accept="image/*" onchange="previewImage(this, 'preview-tptop3')">
+                            <div class="mt-2">
+                                <img id="preview-tptop3" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop3', 'preview-tptop3')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 轮播图片3 -->
+                        <div class="col-md-6 mb-3">
+                            <label>轮播图片3</label>
+                            <input type="file" class="form-control" name="tptop4" accept="image/*" onchange="previewImage(this, 'preview-tptop4')">
+                            <div class="mt-2">
+                                <img id="preview-tptop4" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop4', 'preview-tptop4')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 轮播图片4 -->
+                        <div class="col-md-6 mb-3">
+                            <label>轮播图片4</label>
+                            <input type="file" class="form-control" name="tptop5" accept="image/*" onchange="previewImage(this, 'preview-tptop5')">
+                            <div class="mt-2">
+                                <img id="preview-tptop5" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop5', 'preview-tptop5')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 轮播图片5 -->
+                        <div class="col-md-6 mb-3">
+                            <label>轮播图片5</label>
+                            <input type="file" class="form-control" name="tptop6" accept="image/*" onchange="previewImage(this, 'preview-tptop6')">
+                            <div class="mt-2">
+                                <img id="preview-tptop6" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop6', 'preview-tptop6')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 尺寸和日期 -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>悬浮图片宽度（像素）</label>
+                            <input type="number" class="form-control" name="xuankuan">
+                            <small class="form-text text-muted">建议设置范围：300-800像素，推荐值为400像素</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>顶部图片高度（像素）</label>
+                            <input type="number" class="form-control" name="topgao">
+                            <small class="form-text text-muted">建议设置范围：100-300像素，推荐值为200像素</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>推送起始日期</label>
+                            <input type="date" class="form-control" name="qidate">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>推送截止日期</label>
+                            <input type="date" class="form-control" name="zhidate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> 取消
+                </button>
+                <button type="button" form="edit-form" class="btn btn-primary">
+                    <i class="bi bi-check-circle-fill"></i> 确认修改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
