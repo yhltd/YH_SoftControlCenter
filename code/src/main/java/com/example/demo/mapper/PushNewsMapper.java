@@ -31,11 +31,11 @@ public interface PushNewsMapper extends BaseMapper<PushNews> {
     @Insert("INSERT INTO product_pushnews (" +
             "gsname, xtname, textbox, topgao, xuankuan, " +
             "tptop1, tptop2, tptop3, tptop4, tptop5, " +
-            "tptop6, qidate, zhidate, date" +
+            "tptop6, beizhu1, qidate, zhidate, date" +
             ") VALUES (" +
             "#{gsname}, #{xtname}, #{textbox}, #{topgao}, #{xuankuan}, " +
             "#{tptop1}, #{tptop2}, #{tptop3}, #{tptop4}, #{tptop5}, " +
-            "#{tptop6}, " +
+            "#{tptop6}, #{beizhu1}," +
             "CASE WHEN #{qidate} IS NULL OR #{qidate} = '' THEN NULL ELSE CONVERT(datetime2, #{qidate}, 120) END, " +
             "CASE WHEN #{zhidate} IS NULL OR #{zhidate} = '' THEN NULL ELSE CONVERT(datetime2, #{zhidate}, 120) END, " +
             "GETDATE()" +
@@ -45,7 +45,7 @@ public interface PushNewsMapper extends BaseMapper<PushNews> {
 
     @Update("UPDATE product_pushnews SET " +
             "gsname = #{gsname}, xtname = #{xtname}, textbox = #{textbox}, " +
-            "topgao = #{topgao}, xuankuan = #{xuankuan}, " +
+            "topgao = #{topgao}, xuankuan = #{xuankuan},beizhu1 = #{beizhu1}, " +
             "tptop1 = #{tptop1}, tptop2 = #{tptop2}, tptop3 = #{tptop3}, " +
             "tptop4 = #{tptop4}, tptop5 = #{tptop5}, tptop6 = #{tptop6}, " +
             "qidate = CASE WHEN #{qidate} IS NULL OR #{qidate} = '' THEN NULL ELSE CONVERT(datetime2, #{qidate}, 120) END, " +
