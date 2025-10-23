@@ -135,6 +135,10 @@
                         <textarea class="form-control" rows="5" name="textbox" required></textarea>
                     </div>
                     <div class="mb-3">
+                        <label>公司系统名称</label>
+                        <textarea class="form-control" rows="5" name="beizhu3" required></textarea>
+                    </div>
+                    <div class="mb-3">
                         <label>轮播图片1</label>
                         <input type="file" class="form-control" name="tptop2" accept="image/*">
                     </div>
@@ -157,6 +161,10 @@
                     <div class="mb-3">
                         <label>悬浮图片</label>
                         <input type="file" class="form-control" name="tptop1" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label>登录log</label>
+                        <input type="file" class="form-control" name="beizhu2" accept="image/*">
                     </div>
                     <div class="mb-3">
                         <label>悬浮图片宽度（像素）</label>
@@ -233,6 +241,11 @@
                         <textarea class="form-control" rows="5" name="textbox" required></textarea>
                     </div>
 
+                    <div class="mb-3">
+                        <label>公司系统名称</label>
+                        <textarea class="form-control" rows="5" name="beizhu3" required></textarea>
+                    </div>
+
                     <!-- 图片上传区域 -->
                     <div class="row">
                         <!-- 悬浮图片 -->
@@ -302,6 +315,18 @@
                             <div class="mt-2">
                                 <img id="preview-tptop6" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
                                 <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('tptop6', 'preview-tptop6')" style="display: none;">
+                                    <i class="bi bi-trash"></i> 清除图片
+                                </button>
+                            </div>
+                        </div>
+
+<!--                        log-->
+                        <div class="col-md-6 mb-3">
+                            <label>公司log</label>
+                            <input type="file" class="form-control" name="beizhu2" accept="image/*" onchange="previewImage(this, 'preview-beizhu2')">
+                            <div class="mt-2">
+                                <img id="preview-beizhu2" src="" class="img-thumbnail" style="max-height: 150px; display: none;">
+                                <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearImage('beizhu2', 'preview-beizhu2')" style="display: none;">
                                     <i class="bi bi-trash"></i> 清除图片
                                 </button>
                             </div>

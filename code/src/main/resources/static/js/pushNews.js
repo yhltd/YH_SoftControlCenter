@@ -27,6 +27,8 @@ function setTable(data) {
                         <th width="180">轮播图片4</th>
                         <th width="180">轮播图片5</th>
                         <th width="180">是否显示广告</th>
+                        <th width="180">登录页面log</th>
+                        <th width="180">系统公司名称</th>
                         <th width="180">推送起始日期</th>
                         <th width="180">推送截止日期</th>
                         <th width="180">创建日期</th>
@@ -65,6 +67,8 @@ function renderTable(data) {
             '<td>' + (item.tptop5 ? '<img src="data:image/jpg;base64,' + item.tptop5 + '" style="max-width: 80px; max-height: 60px;" />' : '--') + '</td>' +
             '<td>' + (item.tptop6 ? '<img src="data:image/jpg;base64,' + item.tptop6 + '" style="max-width: 80px; max-height: 60px;" />' : '--') + '</td>' +
             '<td>' + (item.beizhu1 || '--') + '</td>' +
+            '<td>' + (item.beizhu2 ? '<img src="data:image/jpg;base64,' + item.beizhu2 + '" style="max-width: 80px; max-height: 60px;" />' : '--') + '</td>' +
+            '<td>' + (item.beizhu3 || '--') + '</td>' +
             '<td>' + (item.qidate ? new Date(item.qidate).toLocaleDateString() : '--') + '</td>' +
             '<td>' + (item.zhidate ? new Date(item.zhidate).toLocaleDateString() : '--') + '</td>' +
             '<td>' + (item.date ? new Date(item.date).toLocaleDateString() : '--') + '</td>' +
@@ -221,7 +225,7 @@ $(document).ready(function() {
         }
 
         // 处理图片文件上传
-        var fileFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6'];
+        var fileFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6','beizhu2'];
         var filePromises = [];
 
         fileFields.forEach(function(field) {
@@ -346,6 +350,7 @@ function fillEditForm(data) {
     form.find('select[name="xtname"]').val(data.xtname);
     form.find('textarea[name="textbox"]').val(data.textbox);
     form.find('select[name="beizhu1"]').val(data.beizhu1);
+    form.find('select[name="beizhu3"]').val(data.beizhu3);
     form.find('input[name="xuankuan"]').val(data.xuankuan);
     form.find('input[name="topgao"]').val(data.topgao);
 
@@ -363,7 +368,7 @@ function fillEditForm(data) {
 
 // 显示现有图片
 function showExistingImages(data) {
-    const imageFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6'];
+    const imageFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6','beizhu2'];
 
     imageFields.forEach(field => {
         const preview = document.getElementById(`preview-${field}`);
@@ -404,7 +409,7 @@ function handleEditFormSubmit() {
     }
 
     // 处理图片文件 - 使用async/await更清晰
-    const fileFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6'];
+    const fileFields = ['tptop1', 'tptop2', 'tptop3', 'tptop4', 'tptop5', 'tptop6','beizhu2'];
 
     // 使用Promise.all处理所有文件
     const filePromises = fileFields.map(async (field) => {
