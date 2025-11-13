@@ -27,6 +27,8 @@ public class ControlSoftTimeController {
     @Autowired
     private YhJinxiaocunUserService yhJinxiaocunUserService;
     @Autowired
+    private YhJinxiaocunUserServerService yhJinxiaocunUserServerService;
+    @Autowired
     private FinanceUserService financeUserService;
     @Autowired
     private FinancePowerService financePowerService;
@@ -41,7 +43,11 @@ public class ControlSoftTimeController {
     @Autowired
     private JiaowuUserService jiaowuUserService;
     @Autowired
+    private JiaowuUserServerService jiaowuUserServerService;
+    @Autowired
     private JiaowuPowerService jiaowuPowerService;
+    @Autowired
+    private JiaowuPowerServerService jiaowuPowerServerService;
     @Autowired
     private KaUserService kaUserService;
     @Autowired
@@ -85,7 +91,7 @@ public class ControlSoftTimeController {
      * 添加
      */
     @RequestMapping("/insert")
-    public ResultInfo insert(String username, String password, String company, String system) {
+    public ResultInfo insert(String username, String password, String company, String system,String shujuku) {
         try {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
@@ -98,19 +104,44 @@ public class ControlSoftTimeController {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/M/d");//定义日期格式
             String dateString = dateFormat.format(date2);//将时间格式化为字符串
             if (system.equals("云合未来进销存系统")) {
-                YhJinxiaocunUser yhJinxiaocunUser = new YhJinxiaocunUser();
+                    YhJinxiaocunUser yhJinxiaocunUser = new YhJinxiaocunUser();
+                    yhJinxiaocunUser.set_id(sdf.format(date));
+                    yhJinxiaocunUser.setName(username);
+                    yhJinxiaocunUser.setPassword(password);
+                    yhJinxiaocunUser.setBtype("正常");
+                    yhJinxiaocunUser.setAdminis("true");
+                    yhJinxiaocunUser.setGongsi(company);
+                    yhJinxiaocunUserService.add(yhJinxiaocunUser);
+                    List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("进销存", company);
+                    if (jiami.size() == 0) {
+                        ControlSoftTime this_jiami = new ControlSoftTime();
+                        List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                        this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid()) + 1);
+                        this_jiami.setName(company);
+                        this_jiami.setStarttime(sdf2.format(date));
+                        this_jiami.setEndtime(dateString);
+                        this_jiami.setSoftName("进销存");
+                        this_jiami.setMark1("");
+                        this_jiami.setMark2(dateString);
+                        this_jiami.setMark4("1048576");
+                        controlSoftTimeService.add(this_jiami);
+                    }
+
+            }else if (system.equals("云合未来进销存系统mssql")) {
+
+                yhjinxiaocunUserServer yhJinxiaocunUser = new yhjinxiaocunUserServer();
                 yhJinxiaocunUser.set_id(sdf.format(date));
                 yhJinxiaocunUser.setName(username);
                 yhJinxiaocunUser.setPassword(password);
                 yhJinxiaocunUser.setBtype("正常");
                 yhJinxiaocunUser.setAdminis("true");
                 yhJinxiaocunUser.setGongsi(company);
-                yhJinxiaocunUserService.add(yhJinxiaocunUser);
-                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("进销存",company);
-                if(jiami.size() == 0){
+                yhJinxiaocunUserServerService.add(yhJinxiaocunUser);
+                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("进销存", company);
+                if (jiami.size() == 0) {
                     ControlSoftTime this_jiami = new ControlSoftTime();
                     List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
-                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid()) + 1);
                     this_jiami.setName(company);
                     this_jiami.setStarttime(sdf2.format(date));
                     this_jiami.setEndtime(dateString);
@@ -120,6 +151,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark4("1048576");
                     controlSoftTimeService.add(this_jiami);
                 }
+
             } else if (system.equals("云合未来财务系统")) {
                 FinanceUser financeUser = new FinanceUser();
                 FinancePower financePower = new FinancePower();
@@ -276,68 +308,136 @@ public class ControlSoftTimeController {
                     schedulingPowerService.add(schedulingPower);
                 }
             } else if (system.equals("云合未来教务系统")) {
-                JiaowuUser jiaowuUser = new JiaowuUser();
-                jiaowuUser.setUsername(username);
-                jiaowuUser.setPassword(password);
-                jiaowuUser.setCompany(company);
-                jiaowuUser.setState("正常");
-                jiaowuUserService.add(jiaowuUser);
 
-                List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("教务",company);
-                if(jiami.size() == 0){
-                    ControlSoftTime this_jiami = new ControlSoftTime();
-                    List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
-                    this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
-                    this_jiami.setName(company);
-                    this_jiami.setStarttime(sdf2.format(date));
-                    this_jiami.setEndtime(dateString);
-                    this_jiami.setSoftName("教务");
-                    this_jiami.setMark1("");
-                    this_jiami.setMark2(dateString);
-                    this_jiami.setMark4("1048576");
-                    controlSoftTimeService.add(this_jiami);
-                }
 
-                List<JiaowuUser> list = jiaowuUserService.getId();
+                    JiaowuUser jiaowuUser = new JiaowuUser();
+                    jiaowuUser.setUsername(username);
+                    jiaowuUser.setPassword(password);
+                    jiaowuUser.setCompany(company);
+                    jiaowuUser.setState("正常");
+                    jiaowuUserService.add(jiaowuUser);
 
-                for (int i = 1; i <= 13; i++) {
-                    JiaowuPower jiaowuPower = new JiaowuPower();
-                    if (i == 1) {
-                        jiaowuPower.setViewName("学生信息");
-                    } else if (i == 2) {
-                        jiaowuPower.setViewName("教师信息");
-                    } else if (i == 3) {
-                        jiaowuPower.setViewName("权限管理");
-                    } else if (i == 4) {
-                        jiaowuPower.setViewName("用户管理");
-                    } else if (i == 5) {
-                        jiaowuPower.setViewName("缴费记录");
-                    } else if (i == 6) {
-                        jiaowuPower.setViewName("课时统计");
-                    } else if (i == 7) {
-                        jiaowuPower.setViewName("收支明细");
-                    } else if (i == 8) {
-                        jiaowuPower.setViewName("欠费学员");
-                    } else if (i == 9) {
-                        jiaowuPower.setViewName("教师工资");
-                    } else if (i == 10) {
-                        jiaowuPower.setViewName("教师课时统计");
-                    } else if (i == 11) {
-                        jiaowuPower.setViewName("考勤表");
-                    } else if (i == 12) {
-                        jiaowuPower.setViewName("教师课表");
-                    } else {
-                        jiaowuPower.setViewName("设置");
+                    List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("教务",company);
+                    if(jiami.size() == 0){
+                        ControlSoftTime this_jiami = new ControlSoftTime();
+                        List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                        this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                        this_jiami.setName(company);
+                        this_jiami.setStarttime(sdf2.format(date));
+                        this_jiami.setEndtime(dateString);
+                        this_jiami.setSoftName("教务");
+                        this_jiami.setMark1("");
+                        this_jiami.setMark2(dateString);
+                        this_jiami.setMark4("1048576");
+                        controlSoftTimeService.add(this_jiami);
                     }
-                    jiaowuPower.setTId(list.get(0).getId());
-                    jiaowuPower.setCompany(company);
-                    jiaowuPower.setAdd("√");
-                    jiaowuPower.setDel("√");
-                    jiaowuPower.setUpd("√");
-                    jiaowuPower.setSel("√");
-                    jiaowuPowerService.add(jiaowuPower);
-                }
-            } else if (system.equals("云合智慧门店收银系统")) {
+
+                    List<JiaowuUser> list = jiaowuUserService.getId();
+
+                    for (int i = 1; i <= 13; i++) {
+                        JiaowuPower jiaowuPower = new JiaowuPower();
+                        if (i == 1) {
+                            jiaowuPower.setViewName("学生信息");
+                        } else if (i == 2) {
+                            jiaowuPower.setViewName("教师信息");
+                        } else if (i == 3) {
+                            jiaowuPower.setViewName("权限管理");
+                        } else if (i == 4) {
+                            jiaowuPower.setViewName("用户管理");
+                        } else if (i == 5) {
+                            jiaowuPower.setViewName("缴费记录");
+                        } else if (i == 6) {
+                            jiaowuPower.setViewName("课时统计");
+                        } else if (i == 7) {
+                            jiaowuPower.setViewName("收支明细");
+                        } else if (i == 8) {
+                            jiaowuPower.setViewName("欠费学员");
+                        } else if (i == 9) {
+                            jiaowuPower.setViewName("教师工资");
+                        } else if (i == 10) {
+                            jiaowuPower.setViewName("教师课时统计");
+                        } else if (i == 11) {
+                            jiaowuPower.setViewName("考勤表");
+                        } else if (i == 12) {
+                            jiaowuPower.setViewName("教师课表");
+                        } else {
+                            jiaowuPower.setViewName("设置");
+                        }
+                        jiaowuPower.setTId(list.get(0).getId());
+                        jiaowuPower.setCompany(company);
+                        jiaowuPower.setAdd("√");
+                        jiaowuPower.setDel("√");
+                        jiaowuPower.setUpd("√");
+                        jiaowuPower.setSel("√");
+                        jiaowuPowerService.add(jiaowuPower);
+                    }
+
+
+            } else if (system.equals("云合未来教务系统mssql")) {
+
+                    JiaowuUserServer JiaowuUserServer = new JiaowuUserServer();
+                    JiaowuUserServer.setUsername(username);
+                    JiaowuUserServer.setPassword(password);
+                    JiaowuUserServer.setCompany(company);
+                    JiaowuUserServer.setState("正常");
+                    jiaowuUserServerService.add(JiaowuUserServer);
+
+                    List<ControlSoftTime> jiami = controlSoftTimeService.selectCompany("教务",company);
+                    if(jiami.size() == 0){
+                        ControlSoftTime this_jiami = new ControlSoftTime();
+                        List<ControlSoftTime2> maxId = controlSoftTimeService.selectId();
+                        this_jiami.setId(Integer.parseInt(maxId.get(0).getMaxid())+1);
+                        this_jiami.setName(company);
+                        this_jiami.setStarttime(sdf2.format(date));
+                        this_jiami.setEndtime(dateString);
+                        this_jiami.setSoftName("教务");
+                        this_jiami.setMark1("");
+                        this_jiami.setMark2(dateString);
+                        this_jiami.setMark4("1048576");
+                        controlSoftTimeService.add(this_jiami);
+                    }
+
+                    List<JiaowuUserServer> list = jiaowuUserServerService.getId();
+
+                    for (int i = 1; i <= 13; i++) {
+                        JiaowuPowerServer JiaowuPowerServer = new JiaowuPowerServer();
+                        if (i == 1) {
+                            JiaowuPowerServer.setViewName("学生信息");
+                        } else if (i == 2) {
+                            JiaowuPowerServer.setViewName("教师信息");
+                        } else if (i == 3) {
+                            JiaowuPowerServer.setViewName("权限管理");
+                        } else if (i == 4) {
+                            JiaowuPowerServer.setViewName("用户管理");
+                        } else if (i == 5) {
+                            JiaowuPowerServer.setViewName("缴费记录");
+                        } else if (i == 6) {
+                            JiaowuPowerServer.setViewName("课时统计");
+                        } else if (i == 7) {
+                            JiaowuPowerServer.setViewName("收支明细");
+                        } else if (i == 8) {
+                            JiaowuPowerServer.setViewName("欠费学员");
+                        } else if (i == 9) {
+                            JiaowuPowerServer.setViewName("教师工资");
+                        } else if (i == 10) {
+                            JiaowuPowerServer.setViewName("教师课时统计");
+                        } else if (i == 11) {
+                            JiaowuPowerServer.setViewName("考勤表");
+                        } else if (i == 12) {
+                            JiaowuPowerServer.setViewName("教师课表");
+                        } else {
+                            JiaowuPowerServer.setViewName("设置");
+                        }
+                        JiaowuPowerServer.setTId(list.get(0).getId());
+                        JiaowuPowerServer.setCompany(company);
+                        JiaowuPowerServer.setAdd("√");
+                        JiaowuPowerServer.setDel("√");
+                        JiaowuPowerServer.setUpd("√");
+                        JiaowuPowerServer.setSel("√");
+                        jiaowuPowerServerService.add(JiaowuPowerServer);
+                    }
+
+            }else if (system.equals("云合智慧门店收银系统")) {
                 KaUser kaUser = new KaUser();
                 kaUser.setAccount(username);
                 kaUser.setPassword(password);

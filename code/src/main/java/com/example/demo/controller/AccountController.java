@@ -30,6 +30,8 @@ public class AccountController {
     @Autowired
     private YhJinxiaocunUserService yhJinxiaocunUserService;
     @Autowired
+    private YhJinxiaocunUserServerService yhJinxiaocunUserServerService;
+    @Autowired
     private FinanceUserService financeUserService;
     @Autowired
     private GongziUserService gongziUserService;
@@ -37,6 +39,8 @@ public class AccountController {
     private SchedulingUserService schedulingUserService;
     @Autowired
     private JiaowuUserService jiaowuUserService;
+    @Autowired
+    private JiaowuUserServerService jiaowuUserServerService;
     @Autowired
     private KaUserService kaUserService;
     @Autowired
@@ -60,9 +64,11 @@ public class AccountController {
                     List<FinanceUser> financeList = financeUserService.getList(company, username);
                     List<GongziUser> gongziList = gongziUserService.getList(company, username);
                     List<JiaowuUser> jiaowuList = jiaowuUserService.getList(company, username);
+                    List<JiaowuUserServer> jiaowuListMssql = jiaowuUserServerService.getList(company, username);
                     List<KaUser> kaList = kaUserService.getList(company, username);
                     List<SchedulingUser> schedulingList = schedulingUserService.getList(company, username);
                     List<YhJinxiaocunUser> jxcList = yhJinxiaocunUserService.getList(company, username);
+                    List<yhjinxiaocunUserServer> jxcListMssql = yhJinxiaocunUserServerService.getList(company, username);
                     List<CaiJiUser> caiJiList = caiJiUserService.getList(company, username);
 
                     if (fenquanList != null) {
@@ -130,6 +136,19 @@ public class AccountController {
                         }
                     }
 
+                    if (jiaowuListMssql != null) {
+                        for (JiaowuUserServer jiaowuUser : jiaowuListMssql) {
+                            Account account = new Account();
+                            account.setId(jiaowuUser.getId());
+                            account.setSystem("云合未来教务系统mssql");
+                            account.setCompany(jiaowuUser.getCompany());
+                            account.setUsername(jiaowuUser.getUsername());
+                            account.setPassword(jiaowuUser.getPassword());
+                            account.setState(jiaowuUser.getState());
+                            list.add(account);
+                        }
+                    }
+
                     if (kaList != null) {
                         for (KaUser kaUser : kaList) {
                             Account account = new Account();
@@ -162,6 +181,20 @@ public class AccountController {
                             account.setId(0);
                             account.setIdstr(yhJinxiaocunUser.getIdstr());
                             account.setSystem("云合未来进销存系统");
+                            account.setCompany(yhJinxiaocunUser.getGongsi());
+                            account.setUsername(yhJinxiaocunUser.getName());
+                            account.setPassword(yhJinxiaocunUser.getPassword());
+                            account.setState(yhJinxiaocunUser.getBtype());
+                            list.add(account);
+                        }
+                    }
+
+                    if (jxcListMssql != null) {
+                        for (yhjinxiaocunUserServer yhJinxiaocunUser : jxcListMssql) {
+                            Account account = new Account();
+                            account.setId(0);
+                            account.setIdstr(yhJinxiaocunUser.getIdstr());
+                            account.setSystem("云合未来进销存系统mssql");
                             account.setCompany(yhJinxiaocunUser.getGongsi());
                             account.setUsername(yhJinxiaocunUser.getName());
                             account.setPassword(yhJinxiaocunUser.getPassword());
@@ -236,6 +269,22 @@ public class AccountController {
                     }
                     break;
                 }
+                case "云合未来教务系统mssql": {
+                    List<JiaowuUserServer> jiaowuList = jiaowuUserServerService.getList(company, username);
+                    if (jiaowuList != null) {
+                        for (JiaowuUserServer jiaowuUser : jiaowuList) {
+                            Account account = new Account();
+                            account.setId(jiaowuUser.getId());
+                            account.setSystem("云合未来教务系统mssql");
+                            account.setCompany(jiaowuUser.getCompany());
+                            account.setUsername(jiaowuUser.getUsername());
+                            account.setPassword(jiaowuUser.getPassword());
+                            account.setState(jiaowuUser.getState());
+                            list.add(account);
+                        }
+                    }
+                    break;
+                }
                 case "云合智慧门店收银系统": {
                     List<KaUser> kaList = kaUserService.getList(company, username);
                     if (kaList != null) {
@@ -276,6 +325,24 @@ public class AccountController {
                             account.setId(0);
                             account.setIdstr(yhJinxiaocunUser.getIdstr());
                             account.setSystem("云合未来进销存系统");
+                            account.setCompany(yhJinxiaocunUser.getGongsi());
+                            account.setUsername(yhJinxiaocunUser.getName());
+                            account.setPassword(yhJinxiaocunUser.getPassword());
+                            account.setState(yhJinxiaocunUser.getBtype());
+                            list.add(account);
+                        }
+                    }
+                    break;
+                }
+
+                case "云合未来进销存系统mssql": {
+                    List<yhjinxiaocunUserServer> jxcList = yhJinxiaocunUserServerService.getList(company, username);
+                    if (jxcList != null) {
+                        for (yhjinxiaocunUserServer yhJinxiaocunUser : jxcList) {
+                            Account account = new Account();
+                            account.setId(0);
+                            account.setIdstr(yhJinxiaocunUser.getIdstr());
+                            account.setSystem("云合未来进销存系统mssql");
                             account.setCompany(yhJinxiaocunUser.getGongsi());
                             account.setUsername(yhJinxiaocunUser.getName());
                             account.setPassword(yhJinxiaocunUser.getPassword());
@@ -327,9 +394,11 @@ public class AccountController {
                     List<FinanceUser> financeList = financeUserService.getCompany();
                     List<GongziUser> gongziList = gongziUserService.getCompany();
                     List<JiaowuUser> jiaowuList = jiaowuUserService.getCompany();
+                    List<JiaowuUserServer> jiaowuListMssql = jiaowuUserServerService.getCompany();
                     List<KaUser> kaList = kaUserService.getCompany();
                     List<SchedulingUser> schedulingList = schedulingUserService.getCompany();
                     List<YhJinxiaocunUser> jxcList = yhJinxiaocunUserService.getCompany();
+                    List<yhjinxiaocunUserServer> jxcListMssql = yhJinxiaocunUserServerService.getCompany();
                     List<CaiJiUser> caiJiList = caiJiUserService.getCompany();
 
                     if (fenquanList != null) {
@@ -372,6 +441,14 @@ public class AccountController {
                         }
                     }
 
+                    if (jiaowuListMssql != null) {
+                        for (JiaowuUserServer jiaowuUser : jiaowuListMssql) {
+                            Account account = new Account();
+                            account.setCompany(jiaowuUser.getCompany());
+                            list.add(account);
+                        }
+                    }
+
                     if (kaList != null) {
                         for (KaUser kaUser : kaList) {
                             Account account = new Account();
@@ -390,6 +467,14 @@ public class AccountController {
 
                     if (jxcList != null) {
                         for (YhJinxiaocunUser yhJinxiaocunUser : jxcList) {
+                            Account account = new Account();
+                            account.setCompany(yhJinxiaocunUser.getGongsi());
+                            list.add(account);
+                        }
+                    }
+
+                    if (jxcListMssql != null) {
+                        for (yhjinxiaocunUserServer yhJinxiaocunUser : jxcListMssql) {
                             Account account = new Account();
                             account.setCompany(yhJinxiaocunUser.getGongsi());
                             list.add(account);
@@ -442,6 +527,18 @@ public class AccountController {
                     }
                     break;
                 }
+                case "云合未来教务系统mssql": {
+                    List<JiaowuUserServer> jiaowuListMssql = jiaowuUserServerService.getCompany();
+                    if (jiaowuListMssql != null) {
+                        for (JiaowuUserServer jiaowuUser : jiaowuListMssql) {
+                            Account account = new Account();
+                            account.setCompany(jiaowuUser.getCompany());
+                            list.add(account);
+                        }
+                    }
+                    break;
+                }
+
                 case "云合智慧门店收银系统": {
                     List<KaUser> kaList = kaUserService.getCompany();
                     if (kaList != null) {
@@ -475,6 +572,18 @@ public class AccountController {
                     }
                     break;
                 }
+                case "云合未来进销存系统mssql": {
+                    List<yhjinxiaocunUserServer> jxcListMssql = yhJinxiaocunUserServerService.getCompany();
+                    if (jxcListMssql != null) {
+                        for (yhjinxiaocunUserServer yhJinxiaocunUser : jxcListMssql) {
+                            Account account = new Account();
+                            account.setCompany(yhJinxiaocunUser.getGongsi());
+                            list.add(account);
+                        }
+                    }
+                    break;
+                }
+
                 case "云合信息采集系统": {
                     List<CaiJiUser> caiJiList = caiJiUserService.getCompany();
                     if (caiJiList != null) {
@@ -521,8 +630,14 @@ public class AccountController {
                     case "云合未来教务系统":
                         jiaowuUserService.jinyong(Integer.parseInt(idList2.get(i)));
                         break;
+                    case "云合未来教务系统mssql":
+                        jiaowuUserServerService.jinyong(Integer.parseInt(idList2.get(i)));
+                        break;
                     case "云合未来进销存系统":
                         yhJinxiaocunUserService.jinyong(idList2.get(i));
+                        break;
+                    case "云合未来进销存系统mssql":
+                        yhJinxiaocunUserServerService.jinyong(idList2.get(i));
                         break;
                 }
             }
@@ -559,8 +674,14 @@ public class AccountController {
                     case "云合未来教务系统":
                         jiaowuUserService.jiejin(Integer.parseInt(idList2.get(i)));
                         break;
+                    case "云合未来教务系统mssql":
+                        jiaowuUserServerService.jiejin(Integer.parseInt(idList2.get(i)));
+                        break;
                     case "云合未来进销存系统":
                         yhJinxiaocunUserService.jiejin(idList2.get(i));
+                        break;
+                    case "云合未来进销存系统mssql":
+                        yhJinxiaocunUserServerService.jiejin(idList2.get(i));
                         break;
                 }
             }
@@ -598,6 +719,9 @@ public class AccountController {
                     case "云合未来教务系统":
                         jiaowuUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
+                    case "云合未来教务系统mssql":
+                        jiaowuUserServerService.delete(Integer.parseInt(idList2.get(i)));
+                        break;
                     case "云合信息采集系统":
                         caiJiUserService.delete(Integer.parseInt(idList2.get(i)));
                         break;
@@ -612,6 +736,9 @@ public class AccountController {
                         break;
                     case "云合未来进销存系统":
                         yhJinxiaocunUserService.delete(idList2.get(i));
+                        break;
+                    case "云合未来进销存系统mssql":
+                        yhJinxiaocunUserServerService.delete(idList2.get(i));
                         break;
                 }
             }
@@ -643,6 +770,9 @@ public class AccountController {
                 case "云合未来教务系统":
                     jiaowuUserService.deleteCompany(company);
                     break;
+                case "云合未来教务系统mssql":
+                    jiaowuUserServerService.deleteCompany(company);
+                    break;
                 case "云合信息采集系统":
                     caiJiUserService.deleteCompany(company);
                     break;
@@ -657,6 +787,9 @@ public class AccountController {
                     break;
                 case "云合未来进销存系统":
                     yhJinxiaocunUserService.deleteCompany(company);
+                    break;
+                case "云合未来进销存系统mssql":
+                    yhJinxiaocunUserServerService.deleteCompany(company);
                     break;
             }
 

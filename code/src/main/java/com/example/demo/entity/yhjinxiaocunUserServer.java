@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-/**
- * @author hui
- * @date 2022/11/18 18:16
- */
+
 @Data
-@TableName("yh_jinxiaocun_user")
-public class YhJinxiaocunUser {
+@TableName("yh_jinxiaocun_user_mssql")
+public class yhjinxiaocunUserServer {
+
     @TableId(value = "_id")
     private String _id;
     private String adminis;
