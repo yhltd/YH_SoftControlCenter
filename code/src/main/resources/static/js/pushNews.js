@@ -347,7 +347,8 @@ function fillEditForm(data) {
     // 填充基本字段
     form.find('input[name="id"]').val(data.id);
     form.find('input[name="gsname"]').val(data.gsname);
-    form.find('select[name="xtname"]').val(data.xtname);
+    form.find('input[name="xtname"]').val(data.xtname);
+    // form.find('select[name="xtname"]').val(data.xtname);
     form.find('textarea[name="textbox"]').val(data.textbox);
     form.find('select[name="beizhu1"]').val(data.beizhu1);
     form.find('select[name="beizhu3"]').val(data.beizhu3);
