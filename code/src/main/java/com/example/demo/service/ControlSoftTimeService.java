@@ -57,4 +57,6 @@ public interface ControlSoftTimeService extends IService<ControlSoftTime> {
      * @return 是否删除成功
      */
     boolean delete(List<Integer> idList);
+
+    boolean deleteCompany(String company,String system);
 }

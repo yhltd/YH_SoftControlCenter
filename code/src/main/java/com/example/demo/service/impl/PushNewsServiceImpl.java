@@ -20,6 +20,12 @@ public class PushNewsServiceImpl extends ServiceImpl<PushNewsMapper, PushNews> i
 
     @Override
     @DS("notice")
+    public List<PushNews> getC() {
+        return baseMapper.getC();
+    }
+
+    @Override
+    @DS("notice")
     public List<PushNews> getLittle(String system,String company) {
         return baseMapper.getLittle(system,company);
     }
@@ -46,5 +52,11 @@ public class PushNewsServiceImpl extends ServiceImpl<PushNewsMapper, PushNews> i
     @DS("notice")
     public int deleteById(Integer id) {
         return baseMapper.deleteById(id);
+    }
+
+    @Override
+    @DS("notice")
+    public boolean deleteCompany(String company,String system) {
+        return baseMapper.deleteCompany(company,system);
     }
 }

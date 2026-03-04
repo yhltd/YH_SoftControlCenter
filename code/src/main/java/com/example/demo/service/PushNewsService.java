@@ -7,6 +7,8 @@ import java.util.List;
 public interface PushNewsService {
     List<PushNews> getList();
 
+    List<PushNews> getC();
+
     List<PushNews> getLittle(String system,String company);
 
     int insertPushNews(PushNews pushNews);
@@ -17,4 +19,5 @@ public interface PushNewsService {
 
     int deleteById(Integer id);
 
+    boolean deleteCompany(String company,String system);
 }

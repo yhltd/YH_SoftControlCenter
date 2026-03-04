@@ -56,4 +56,10 @@ public interface PushNewsMapper extends BaseMapper<PushNews> {
     @Delete("DELETE FROM product_pushnews WHERE id = #{id}")
     int deleteById(Integer id);
 
+    @Select("select * from product_pushnews WHERE gsname = '中心推送内容' AND xtname = '中心推送内容' ")
+    List<PushNews> getC();
+
+    @Delete("delete from product_pushnews where gsname=#{company} and xtname=#{system}  ")
+    boolean deleteCompany(String company,String system);
+
 }

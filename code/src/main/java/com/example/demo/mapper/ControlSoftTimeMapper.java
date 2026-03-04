@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.entity.CaiJiUser;
 import com.example.demo.entity.ControlSoftTime;
 import com.example.demo.entity.ControlSoftTime2;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,7 @@ public interface ControlSoftTimeMapper extends BaseMapper<ControlSoftTime> {
 
     @Select("select * from control_soft_time where (soft_name='人事' or soft_name='财务' or soft_name='排产' or soft_name='进销存' or soft_name='门店' or soft_name='教务' or soft_name='分权' or soft_name='采集') and name like '%'+ #{query} +'%' ")
     List<ControlSoftTime> queryList(String query);
+
+    @Delete("delete from control_soft_time where name=#{company} and soft_name=#{system}  ")
+    boolean deleteCompany(String company,String system);
 }

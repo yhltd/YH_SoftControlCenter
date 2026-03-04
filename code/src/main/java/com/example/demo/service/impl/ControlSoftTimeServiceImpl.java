@@ -88,4 +88,9 @@ public class ControlSoftTimeServiceImpl extends ServiceImpl<ControlSoftTimeMappe
     public boolean delete(List<Integer> idList) {
         return removeByIds(idList);
     }
+
+    @Override
+    public boolean deleteCompany(String company,String system) {
+        return baseMapper.deleteCompany(company,system);
+    }
 }

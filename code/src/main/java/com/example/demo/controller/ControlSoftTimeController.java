@@ -665,5 +665,18 @@ public class ControlSoftTimeController {
         }
     }
 
+    @RequestMapping("/deleteCompany")
+    public ResultInfo deleteCompany(String company, String system, HttpSession session) {
+        try {
+            controlSoftTimeService.deleteCompany(company,system);
+            return ResultInfo.success("成功", company);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("失败：{}", e.getMessage());
+            log.error("参数：{}", company);
+            return ResultInfo.error("失败");
+        }
+    }
+
 
 }
