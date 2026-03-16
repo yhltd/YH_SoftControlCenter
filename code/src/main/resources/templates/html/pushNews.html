@@ -28,8 +28,8 @@
 <body class="pt-2" style="width: 98%;margin-left: 2%">
 <div class="top-toolbar row">
     <div class="col-md-3 mb-2">
-        <input id="system" class="form-control" list="system-list-select" name="xtname" placeholder="请选择或输入系统名称" required>
-        <datalist id="system-list-select">
+        <select id="system" class="form-control">
+            <option value="">全部系统</option>
             <option value="云合未来财务系统">云合未来财务系统</option>
             <option value="云合人事管理系统">云合人事管理系统</option>
             <option value="云合未来进销存系统">云合未来进销存系统</option>
@@ -38,7 +38,7 @@
             <option value="云合未来教务系统">教务管理系统</option>
             <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
             <option value="云合信息采集系统">云合未来信息采集系统</option>
-        </datalist>
+        </select>
     </div>
     <div class="col-md-3 mb-2">
         <input id="company" type="text" class="form-control" placeholder="公司名" autocomplete="off">
@@ -111,8 +111,8 @@
                     </div>
                     <div class="mb-3">
                         <label>关联系统</label>
-                        <input class="form-control" list="system-list-add" name="xtname" placeholder="请选择或输入系统名称" required>
-                        <datalist id="system-list-add">
+                        <select class="form-control" name="xtname" required>
+                            <option value="">请选择系统</option>
                             <option value="云合未来财务系统">云合未来财务系统</option>
                             <option value="云合人事管理系统">云合人事管理系统</option>
                             <option value="云合未来进销存系统">云合未来进销存系统</option>
@@ -121,7 +121,7 @@
                             <option value="云合未来教务系统">教务管理系统</option>
                             <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
                             <option value="云合信息采集系统">云合未来信息采集系统</option>
-                        </datalist>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label>是否显示广告</label>
@@ -217,8 +217,8 @@
                     </div>
                     <div class="mb-3">
                         <label>关联系统</label>
-                        <input class="form-control" list="system-list" name="xtname" placeholder="请选择或输入系统名称" required>
-                        <datalist id="system-list">
+                        <select class="form-control" name="xtname" required>
+                            <option value="">请选择系统</option>
                             <option value="云合未来财务系统">云合未来财务系统</option>
                             <option value="云合人事管理系统">云合人事管理系统</option>
                             <option value="云合未来进销存系统">云合未来进销存系统</option>
@@ -227,7 +227,7 @@
                             <option value="云合未来教务系统">教务管理系统</option>
                             <option value="云合智慧门店收银系统">云合智慧门店收银系统</option>
                             <option value="云合信息采集系统">云合未来信息采集系统</option>
-                        </datalist>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label>是否显示广告</label>

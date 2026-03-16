@@ -22,7 +22,7 @@ public interface PushNewsMapper extends BaseMapper<PushNews> {
             "       AND xtname = #{system}" +
             "   </if>" +
             "   <if test='company != null and company != \"\"'>" +
-            "       AND gsname LIKE CONCAT('%', #{company}, '%')" +
+            "       AND gsname LIKE '%' + #{company} + '%'" +
             "   </if>" +
             "</where>" +
             "</script>")

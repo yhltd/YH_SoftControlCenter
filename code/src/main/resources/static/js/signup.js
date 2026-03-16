@@ -120,6 +120,13 @@ function getList() {
             }
 
             var system = $('#add-system').val();
+
+            if (system === "云合未来进销存系统mssql") {
+                system = "云合未来进销存系统";
+            } else if (system === "云合未来教务系统mssql") {
+                system = "云合未来教务系统";
+            }
+
             var company = $('#add-company').val();
 
             var formObject = {
