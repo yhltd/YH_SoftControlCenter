@@ -215,6 +215,8 @@ public class ControlSoftTimeController {
             } else if (system.equals("云合人事管理系统")) {
                 GongziUser gongziUser = new GongziUser();
 
+                company = company +"_hr";
+
                 gongziUser.setB("管理员");
                 gongziUser.setI(username);
                 gongziUser.setJ(password);
@@ -291,7 +293,7 @@ public class ControlSoftTimeController {
                     } else if (i == 8) {
                         schedulingPower.setViewName("排班明细");
                     } else if (i == 9) {
-                        schedulingPower.setViewName("排产核对");
+                        schedulingPower.setViewName("生产线");
                     } else if (i == 10) {
                         schedulingPower.setViewName("汇总");
                     } else if (i == 11) {

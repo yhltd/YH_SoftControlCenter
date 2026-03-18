@@ -124,7 +124,21 @@ function getList() {
             if (system === "云合未来进销存系统mssql") {
                 system = "云合未来进销存系统";
             } else if (system === "云合未来教务系统mssql") {
-                system = "云合未来教务系统";
+                system = "教务管理系统";
+            }else if (system === "云合未来教务系统") {
+                system = "教务管理系统";
+            }else if (system === "云合信息采集系统") {
+                system = "云合未来信息采集系统";
+            }else if (system === "云合分权编辑系统") {
+                system = "分权编辑系统";
+            }else if (system === "云合未来财务系统") {
+                system = "云合未来财务系统";
+            }else if (system === "云合排产管理系统") {
+                system = "云合排产管理系统";
+            }else if (system === "云合人事管理系统") {
+                system = "云合人事管理系统";
+            }else if (system === "云合智慧门店收银系统") {
+                system = "云合智慧门店收银系统";
             }
 
             var company = $('#add-company').val();
