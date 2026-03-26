@@ -25,17 +25,57 @@
     <script type="text/javascript" src="../js/signup.js"></script>
 </head>
 
+<style>
+    .checkbox-group{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .checkbox-item{
+        margin-left: 10px;
+    }
+
+</style>
+
 <body class="pt-2" style="width: 98%;margin-left: 2%">
 
 <div id="table-toolbar" style="margin-top: 1%;display: flex; ">
     <div class="btn-group" role="group">
         <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：注册账号</a>
     </div>
-    <div style="margin-left: 10px; ">
-        <label>是否显示广告：</label>
-        <input type="radio" name="status" value="1" checked> 显示
-        <input type="radio" name="status" value="0"> 隐藏
+
+    <div>
+        <div>
+            <label>是否显示广告：</label>
+            <input type="radio" name="status" value="1" checked> 显示
+            <input type="radio" name="status" value="0"> 隐藏
+        </div>
+
+        <div class="checkbox-group">
+            <h6>用户购买/体验系统类型:</h6>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="app" value="APP安卓"  checked>
+                <label for="app">APP</label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="pc" value="PC端"  checked>
+                <label for="pc">PC端</label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="excel" value="EXCEL"  checked>
+                <label for="excel">EXCEL</label>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="wx" value="小程序"  checked>
+                <label for="wx">小程序</label>
+            </div>
+        </div>
     </div>
+
 </div>
 
 <div style="margin-top: 1%">

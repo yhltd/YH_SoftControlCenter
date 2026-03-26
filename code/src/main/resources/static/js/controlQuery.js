@@ -43,72 +43,229 @@ $(function () {
             alert('请选择一条数据修改');
             return;
         }
+
+        // 先重置表单，但保留复选框组的结构
+        $('#update-form')[0].reset();
+
+        // 重置所有复选框为未选中状态（但不移除任何DOM元素）
+        $('.checkbox-group input[type="checkbox"]').each(function() {
+            $(this).prop('checked', false);
+        });
+
         $('#update-modal').modal('show');
-        console.log(rows[0].data)
+
         var this_data = rows[0].data
-        console.log(this_data.name)
-        this_data.name = this_data.name.trim()
-        var startarr = this_data.starttime.split("/")
-        var start = startarr[0]
-        startarr[2] = startarr[2].trim()
-        if(startarr[1].length < 2){
-            start = start + "-0" + startarr[1]
-        }else{
-            start = start + "-" + startarr[1]
-        }
-        if(startarr[2].length < 2){
-            start = start + "-0" + startarr[2]
-        }else{
-            start = start + "-" + startarr[2]
-        }
-        console.log(start)
+        console.log(this_data)
 
-        var endarr = this_data.endtime.split("/")
-        var end = endarr[0]
-        endarr[2] = endarr[2].trim()
-        if(endarr[1].length < 2){
-            end = end + "-0" + endarr[1]
-        }else{
-            end = end + "-" + endarr[1]
-        }
-        if(endarr[2].length < 2){
-            end = end + "-0" + endarr[2]
-        }else{
-            end = end + "-" + endarr[2]
-        }
-        console.log(end)
+        // 设置其他表单字段的值
+        $('#update-form input[name="id"]').val(this_data.id);
+        $('#update-form input[name="name"]').val(this_data.name ? this_data.name.trim() : '');
 
-        var mark2arr = this_data.mark2.split("/")
-        var mark2 = mark2arr[0]
-        mark2arr[2] = mark2arr[2].trim()
-        if(mark2arr[1].length < 2){
-            mark2 = mark2 + "-0" + mark2arr[1]
-        }else{
-            mark2 = mark2 + "-" + mark2arr[1]
+        // 处理日期
+        if (this_data.starttime) {
+            var startarr = this_data.starttime.split("/")
+            var start = startarr[0]
+            startarr[2] = startarr[2].trim()
+            if(startarr[1].length < 2){
+                start = start + "-0" + startarr[1]
+            }else{
+                start = start + "-" + startarr[1]
+            }
+            if(startarr[2].length < 2){
+                start = start + "-0" + startarr[2]
+            }else{
+                start = start + "-" + startarr[2]
+            }
+            $('#update-form input[name="starttime"]').val(start.trim());
         }
-        if(mark2arr[2].length < 2){
-            mark2 = mark2 + "-0" + mark2arr[2]
-        }else{
-            mark2 = mark2 + "-" + mark2arr[2]
-        }
-        console.log(mark2)
 
-        this_data.starttime = start.trim()
-        this_data.endtime = end.trim()
-        this_data.softName = this_data.softName.trim()
-        this_data.mark1 = this_data.mark1.trim()
-        this_data.mark2 = mark2.trim()
-        if(this_data.mark3 != null && this_data.mark3 != ""){
-            this_data.mark3 = this_data.mark3.trim()
-            this_data.mark3 = this_data.mark3.split(":")[1]
-            if(this_data.mark3 != null && this_data.mark3 != ""){
-                this_data.mark3 = this_data.mark3.replace("(","")
-                this_data.mark3 = this_data.mark3.replace(")","")
+        if (this_data.endtime) {
+            var endarr = this_data.endtime.split("/")
+            var end = endarr[0]
+            endarr[2] = endarr[2].trim()
+            if(endarr[1].length < 2){
+                end = end + "-0" + endarr[1]
+            }else{
+                end = end + "-" + endarr[1]
+            }
+            if(endarr[2].length < 2){
+                end = end + "-0" + endarr[2]
+            }else{
+                end = end + "-" + endarr[2]
+            }
+            $('#update-form input[name="endtime"]').val(end.trim());
+        }
+
+        $('#update-form input[name="mark1"]').val(this_data.mark1 ? this_data.mark1.trim() : '');
+
+        if (this_data.mark2) {
+            var mark2arr = this_data.mark2.split("/")
+            var mark2 = mark2arr[0]
+            mark2arr[2] = mark2arr[2].trim()
+            if(mark2arr[1].length < 2){
+                mark2 = mark2 + "-0" + mark2arr[1]
+            }else{
+                mark2 = mark2 + "-" + mark2arr[1]
+            }
+            if(mark2arr[2].length < 2){
+                mark2 = mark2 + "-0" + mark2arr[2]
+            }else{
+                mark2 = mark2 + "-" + mark2arr[2]
+            }
+            $('#update-form input[name="mark2"]').val(mark2.trim());
+        }
+
+        if (this_data.mark3) {
+            var mark3Value = this_data.mark3.trim();
+            if(mark3Value.includes(':')){
+                mark3Value = mark3Value.split(":")[1];
+                mark3Value = mark3Value.replace("(","").replace(")","");
+            }
+            $('#update-form input[name="mark3"]').val(mark3Value);
+        }
+
+        $('#update-form input[name="mark4"]').val(this_data.mark4 ? this_data.mark4.trim() : '');
+
+        // ========== 处理 mark5 字段（复选框） ==========
+        var mark5Value = this_data.mark5 || "";
+        var selectedSystems = [];
+        var remark = "";
+
+        if (mark5Value && mark5Value.includes('$')) {
+            var parts = mark5Value.split('$');
+            if (parts.length >= 2 && parts[1]) {
+                selectedSystems = parts[1].split('|');
+            }
+            if (parts.length >= 3) {
+                remark = parts[2];
             }
         }
-        this_data.mark4 = this_data.mark4.trim()
-        setForm(this_data, '#update-form');
+
+        // 设置复选框选中状态 - 使用新的选择器
+        $('.checkbox-group input[type="checkbox"]').each(function() {
+            var checkboxValue = $(this).val();
+            if (selectedSystems.includes(checkboxValue)) {
+                $(this).prop('checked', true);
+            } else {
+                $(this).prop('checked', false);
+            }
+        });
+
+        // 设置备注内容
+        $('#update-mark5').val(remark);
     })
+    // $('#update-btn').click(function () {
+    //     let rows = getTableSelection('#accountTable')
+    //     if (rows.length > 1 || rows.length == 0) {
+    //         alert('请选择一条数据修改');
+    //         return;
+    //     }
+    //     $('#update-modal').modal('show');
+    //     console.log(rows[0].data)
+    //     var this_data = rows[0].data
+    //     console.log(this_data.name)
+    //     this_data.name = this_data.name.trim()
+    //     var startarr = this_data.starttime.split("/")
+    //     var start = startarr[0]
+    //     startarr[2] = startarr[2].trim()
+    //     if(startarr[1].length < 2){
+    //         start = start + "-0" + startarr[1]
+    //     }else{
+    //         start = start + "-" + startarr[1]
+    //     }
+    //     if(startarr[2].length < 2){
+    //         start = start + "-0" + startarr[2]
+    //     }else{
+    //         start = start + "-" + startarr[2]
+    //     }
+    //     console.log(start)
+    //
+    //     var endarr = this_data.endtime.split("/")
+    //     var end = endarr[0]
+    //     endarr[2] = endarr[2].trim()
+    //     if(endarr[1].length < 2){
+    //         end = end + "-0" + endarr[1]
+    //     }else{
+    //         end = end + "-" + endarr[1]
+    //     }
+    //     if(endarr[2].length < 2){
+    //         end = end + "-0" + endarr[2]
+    //     }else{
+    //         end = end + "-" + endarr[2]
+    //     }
+    //     console.log(end)
+    //
+    //     var mark2arr = this_data.mark2.split("/")
+    //     var mark2 = mark2arr[0]
+    //     mark2arr[2] = mark2arr[2].trim()
+    //     if(mark2arr[1].length < 2){
+    //         mark2 = mark2 + "-0" + mark2arr[1]
+    //     }else{
+    //         mark2 = mark2 + "-" + mark2arr[1]
+    //     }
+    //     if(mark2arr[2].length < 2){
+    //         mark2 = mark2 + "-0" + mark2arr[2]
+    //     }else{
+    //         mark2 = mark2 + "-" + mark2arr[2]
+    //     }
+    //     console.log(mark2)
+    //
+    //     this_data.starttime = start.trim()
+    //     this_data.endtime = end.trim()
+    //     this_data.softName = this_data.softName.trim()
+    //     this_data.mark1 = this_data.mark1.trim()
+    //     this_data.mark2 = mark2.trim()
+    //     if(this_data.mark3 != null && this_data.mark3 != ""){
+    //         this_data.mark3 = this_data.mark3.trim()
+    //         this_data.mark3 = this_data.mark3.split(":")[1]
+    //         if(this_data.mark3 != null && this_data.mark3 != ""){
+    //             this_data.mark3 = this_data.mark3.replace("(","")
+    //             this_data.mark3 = this_data.mark3.replace(")","")
+    //         }
+    //     }
+    //     this_data.mark4 = this_data.mark4.trim()
+    //
+    //     // ========== 处理 mark5 字段 ==========
+    //     // mark5 格式: "$APP安卓|PC端|EXCEL|小程序$这是备注内容"
+    //     var mark5Value = this_data.mark5 || "";
+    //     var selectedSystems = [];  // 选中的系统列表
+    //     var remark = "";           // 备注内容
+    //
+    //     if (mark5Value && mark5Value.includes('$')) {
+    //         // 按 $ 分割
+    //         var parts = mark5Value.split('$');
+    //         // parts[0] 是空字符串（因为以$开头），parts[1] 是多选条件，parts[2] 是备注内容
+    //         if (parts.length >= 2) {
+    //             var systemStr = parts[1];  // "APP安卓|PC端|EXCEL|小程序"
+    //             if (systemStr) {
+    //                 selectedSystems = systemStr.split('|');
+    //             }
+    //         }
+    //         if (parts.length >= 3) {
+    //             remark = parts[2];  // "这是备注内容"
+    //         }
+    //     }
+    //
+    //     // 先设置其他表单字段的值
+    //     setForm(this_data, '#update-form');
+    //
+    //     // 然后再单独处理复选框和备注字段，避免被setForm覆盖
+    //     // 先重置所有复选框为未选中状态
+    //     $('.checkbox-group input[type="checkbox"]').each(function() {
+    //         $(this).prop('checked', false);
+    //     });
+    //
+    //     // 设置复选框选中状态
+    //     $('.checkbox-group input[type="checkbox"]').each(function() {
+    //         var checkboxValue = $(this).val();
+    //         if (selectedSystems.includes(checkboxValue)) {
+    //             $(this).prop('checked', true);
+    //         }
+    //     });
+    //
+    //     // 设置备注内容到 update-mark5 输入框
+    //     $('#update-mark5').val(remark);
+    // })
 
     //修改弹窗点击关闭按钮
     $('#update-close-btn').click(function () {
@@ -122,6 +279,26 @@ $(function () {
         if (msg) {
             let params = formToJson('#update-form');
             console.log(params)
+
+            // ========== 处理 mark5 字段：合并复选框和备注 ==========
+            // 获取选中的复选框值
+            var selectedSystems = [];
+            $('.checkbox-group input[type="checkbox"]:checked').each(function() {
+                selectedSystems.push($(this).val());
+            });
+
+            // 获取备注内容
+            var remark = $('#update-mark5').val() || "";
+
+            // 合并成 mark5 格式: $选中的系统(用|分隔)$备注内容
+            if (selectedSystems.length > 0) {
+                params.mark5 = '$' + selectedSystems.join('|') + '$' + remark;
+            } else {
+                // 如果没有选中任何系统，只保留备注（或设为空）
+                params.mark5 = remark ? '$$' + remark : '';
+            }
+
+
             var starttime = params.starttime.split("-")
             var this_start = starttime[0]
             console.log(starttime[1].substr(0, 1))
@@ -188,6 +365,7 @@ $(function () {
                         $('#update-close-btn').click();
                         $('#update-modal').modal('hide');
                         getList();
+                        window.location.reload();
                     }
                 })
             }else{
@@ -196,6 +374,7 @@ $(function () {
         }
 
     })
+
 
     //点击删除按钮
     $('#delete-btn').click(function () {
@@ -353,6 +532,19 @@ function setTable(data) {
                 align: 'center',
                 sortable: true,
                 width: 180,
+                formatter:function(value, row , index){
+                    if(value == null || value == ''){
+                        value = '-'
+                    }
+                    return "<div title='"+value+"'; style='overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100%;word-wrap:break-all;word-break:break-all;' href='javascript:edit(\""+row.id+"\",true)'>"+value+"</div>";
+                }
+            }
+            ,{
+                field: 'mark5',
+                title: '用户可使用系统及备注(mark5)',
+                align: 'center',
+                sortable: true,
+                width: 400,
                 formatter:function(value, row , index){
                     if(value == null || value == ''){
                         value = '-'

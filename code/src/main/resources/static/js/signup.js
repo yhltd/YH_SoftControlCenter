@@ -1,5 +1,26 @@
 $(function () {
+
+
+    function getSelectedValues() {
+        const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        const selected = [];
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selected.push(checkbox.value);
+            }
+        });
+
+        // 返回选中的值数组（用逗号连接）
+        return selected.join('|');
+    }
+
     $("#add-submit-btn").click(function () {
+
+        var selectedTypes = getSelectedValues();
+
+        console.log("selectedTypes",selectedTypes)
+
         var system = $('#add-system').val();
         var company = $('#add-company').val();
         var username = $('#add-username').val();
@@ -18,6 +39,13 @@ $(function () {
             return;
         }
 
+        if (!selectedTypes) {
+            alert("请选择系统类型！");
+            return;
+        }
+
+        mark5 = "$"+selectedTypes+"$"
+
         if (checkForm('#add-form')) {
             $ajax({
                 type: 'post',
@@ -27,6 +55,7 @@ $(function () {
                     company: company,
                     username: username,
                     password: password,
+                    mark5:mark5,
                 },
             }, false, '', function (res) {
                 if (res.code == 200) {
@@ -59,6 +88,8 @@ $(function () {
         var username = $('#add-username').val();
         var password = $('#add-password').val();
 
+        var selectedTypes = getSelectedValues();
+
         if (company == "") {
             alert("请填写公司！");
             return;
@@ -72,6 +103,13 @@ $(function () {
             return;
         }
 
+        if (!selectedTypes) {
+            alert("请选择系统类型！");
+            return;
+        }
+
+        mark5 = "$"+selectedTypes+"$"
+
         $ajax({
             type: 'post',
             url: '/control/insert',
@@ -80,6 +118,7 @@ $(function () {
                 company: company,
                 username: username,
                 password: password,
+                mark5:mark5
             },
         }, false, '', function (res) {
             if (res.code == 200) {

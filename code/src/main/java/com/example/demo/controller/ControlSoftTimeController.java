@@ -91,7 +91,7 @@ public class ControlSoftTimeController {
      * 添加
      */
     @RequestMapping("/insert")
-    public ResultInfo insert(String username, String password, String company, String system,String shujuku) {
+    public ResultInfo insert(String username, String password, String company, String system,String mark5) {
         try {
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssS");
@@ -124,6 +124,7 @@ public class ControlSoftTimeController {
                         this_jiami.setMark1("");
                         this_jiami.setMark2(dateString);
                         this_jiami.setMark4("1048576");
+                        this_jiami.setMark5(mark5);
                         controlSoftTimeService.add(this_jiami);
                     }
 
@@ -149,6 +150,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -175,6 +177,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -235,6 +238,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -271,6 +275,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -331,6 +336,7 @@ public class ControlSoftTimeController {
                         this_jiami.setMark1("");
                         this_jiami.setMark2(dateString);
                         this_jiami.setMark4("1048576");
+                        this_jiami.setMark5(mark5);
                         controlSoftTimeService.add(this_jiami);
                     }
 
@@ -396,6 +402,7 @@ public class ControlSoftTimeController {
                         this_jiami.setMark1("");
                         this_jiami.setMark2(dateString);
                         this_jiami.setMark4("1048576");
+                        this_jiami.setMark5(mark5);
                         controlSoftTimeService.add(this_jiami);
                     }
 
@@ -458,6 +465,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -496,6 +504,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
 
@@ -568,6 +577,7 @@ public class ControlSoftTimeController {
                     this_jiami.setMark1("");
                     this_jiami.setMark2(dateString);
                     this_jiami.setMark4("1048576");
+                    this_jiami.setMark5(mark5);
                     controlSoftTimeService.add(this_jiami);
                 }
             }
