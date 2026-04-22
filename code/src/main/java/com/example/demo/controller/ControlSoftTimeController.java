@@ -319,6 +319,7 @@ public class ControlSoftTimeController {
 
                     JiaowuUser jiaowuUser = new JiaowuUser();
                     jiaowuUser.setUsername(username);
+                    jiaowuUser.setRealname(username);
                     jiaowuUser.setPassword(password);
                     jiaowuUser.setCompany(company);
                     jiaowuUser.setState("正常");
@@ -385,6 +386,7 @@ public class ControlSoftTimeController {
 
                     JiaowuUserServer JiaowuUserServer = new JiaowuUserServer();
                     JiaowuUserServer.setUsername(username);
+                    JiaowuUserServer.setRealname(username);
                     JiaowuUserServer.setPassword(password);
                     JiaowuUserServer.setCompany(company);
                     JiaowuUserServer.setState("正常");

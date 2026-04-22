@@ -16,6 +16,7 @@ public class JiaowuUserServer {
     @TableId(value = "id", type = IdType.AUTO)
     private int id;
     private String username;
+    private String realname;
     private String password;
     private String state;
     private String company;
